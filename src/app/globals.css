@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+@import "tailwindcss";
+@config '../../tailwind.config.ts';
+
+@font-face {
+  font-family: 'GE_SS_Two';
+  src:
+    url('/assets/fonts/GE_SS_Two_Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GE_SS_Two';
+  src:
+    url('/assets/fonts/GE_SS_Two_Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Example usage */
+
+:root {
+  --font-spartan: "League Spartan",sans-serif;
+  --font-gs:'GE_SS_Two',sans-serif;
+  --font-arabic:"Open Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif
+}
+
+body {
+  color: rgb(0, 0, 0);
+  width: 100dvw;
+  overflow-x: hidden;
+  height: 100%;
+  background: #ffffff;
+  border-color: /*#3b3b3b*/#f2f2f2;
+  font-family: var(--font-spartan);
+  overflow-x: hidden;
+}
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+.swal2-container,.Toastify__toast{
+    font-family: var(--font-arabic);
+}
+
+@layer utilities{
+  .screen-max-width {
+      max-width: 1304px;
+    /* max-width: 1440px; */
+      margin-inline-start: auto;
+      margin-inline-end: auto;
+      position: relative;
+    }
+    
+  }
+  @layer components{
+    .flex-center {
+      @apply flex items-center justify-center
+    }
+    
+    /*max-h-[500px]*/
+    .video-container {
+      @apply relative w-full overflow-hidden rounded-sm
+    }
+  
+    .common-padding {
+      @apply px-3 sm:px-9
+    }
+  
+    .controlbtns {
+      @apply flex items-center justify-between w-full p-3 py-4 transition-opacity
+      /*bg-[#000000dc]*/
+    }
+  
+    .video-btn {
+      @apply relative text-gray-50 transition-all hover:text-white cursor-pointer text-xl md:text-2xl
+    }
+  
+    .tooltip {
+      @apply fixed py-1 px-2 rounded-[3px] font-sans text-nowrap opacity-0 pointer-events-none z-[9999] text-xs text-white bg-black/90 -translate-x-1/2
+    }
+  
+    .progress {
+      @apply min-w-2.5 w-2.5 bg-red-200 flex justify-end items-center h-full after:h-3 after:w-3 after:min-w-3 after:rounded-full after:bg-red-200 after:z-1 after:relative after:left-0.5
+    }
+  
+    .sec10 {
+      @apply absolute transition-opacity duration-75 opacity-0 pointer-events-none items-center justify-center
+    }
+  
+    .preview {
+      @apply absolute bottom-1/1 my-2.5 left-0 hidden text-gray-50 text-xs rounded-sm pointer-events-none flex-col items-center p-1.5
+    }
+    .poup-btn{
+      @apply inline-block font-normal text-center whitespace-nowrap align-middle text-base leading-tight rounded select-none border-1 mx-[0.5rem] py-[0.6rem] px-[0.85rem] border-white/0 transition-all
+    }
+    .exam-btn{
+      @apply border-white border w-13 lg:w-15 flex justify-center items-center text-[1.3rem] md:text-2xl bg-white/0 hover:bg-white hover:text-blue-200 transition-all aspect-square rounded-full text-white cursor-pointer
+    }
+    .btn-success{
+      @apply text-white bg-green-success border-green-success outline-0 hover:bg-[#218838] hover:border-[#218838] focus:shadow-[0_0_0_3px_rgba(40,167,69,0.5)]
+    }
+
+    .btn-error {
+      @apply text-white bg-[#dc3545] border-[#dc3545] outline-0 [&:focus]:shadow-[0_0_0_3px_rgba(220,53,69,0.5)]
+    }
+    .li{
+      @apply flex items-center relative text-gray-700 border-b-1 border-gray-border py-5
+    }
+    .button{
+      @apply cursor-pointer mt-6 w-46 h-12 sm:w-54 sm:h-15 bg-green-300 rounded-sm text-white flex items-center justify-center  sm:text-lg transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-green-300
+    }
+}
+
+@keyframes bg-color-time {
+
+  0%,
+  100% {
+    background-color: #ef4444;
+  }
+
+
+  50% {
+    background-color: #facc15;
+  }
+
+}
+/* video::-webkit-media-controls {
+  display: none;
+} */
+/* html, body {
+  touch-action:manipulation;
+} */
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 60px;
+  @apply bg-gray-600;
+  height: 3px;
+  padding: 0;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 5px;
+  height: 13px;
+  width: 13px;
+  border-radius: 100%;
+  background: #eeeeee;
+}
+
+

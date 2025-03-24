@@ -1,0 +1,32 @@
+[
+    {
+        "name": "James Michael",
+        "profilePicture": "/assets/images/student2.webp",
+        "score": 98
+    },
+    {
+        "name": "Jane Smith",
+        "profilePicture": "/assets/images/student.jpg",
+        "score": 96
+    },
+    {
+        "name": "Alice Johnson",
+        "profilePicture": "/assets/images/student3.webp",
+        "score": 93
+    },
+    {
+        "name": "Robert Johnson",
+        "profilePicture": "/assets/images/student2.webp",
+        "score": 92
+    },
+    {
+        "name": "William Joseph",
+        "profilePicture": "/assets/images/student.jpg",
+        "score": 89
+    },
+    {
+        "name": "Christopher Daniel",
+        "profilePicture": "/assets/images/student3.webp",
+        "score": 88
+    }
+]
