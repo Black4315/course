@@ -36,7 +36,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck :boolean}) => {
     }, [])
 
     return (
-        <section className='common-padding py-5 screen-max-width mb-10'>
+        <section className='common-padding py-4.5 screen-max-width mb-10'>
             <div className="flex flex-col gap-7 lg:grid lg:grid-rows-[repeat(4,auto)] lg:grid-cols-[minmax(500px,750px)_auto] xl:grid-cols-[minmax(600px,750px)_auto]">
                 <div className={`${isWide ? 'col-span-2' : ''} ${(mobileCheck && isVideoStart && !isWide) && 'sticky top-0 shadow-sm z-9 px-3 sm:px-9 -mx-3 sm:-mx-9 -mt-5 py-3 pt-5 bg-white'}  flex flex-col  max-xl:col-span-2`}>
 
@@ -74,9 +74,9 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck :boolean}) => {
                 </div>
 
                 <div className='col-start-1 row-start-2 max-md:mx-2 mt-3 md:my-4 '>
-                    <h2 className="h2 mb-7 max-md:hidden">Course Materials</h2>
+                    <h2 className="h2 mb-6 max-md:hidden">Course Materials</h2>
 
-                    <div className="px-9 py-6.5 md:py-4 shadow-[0_0_30px_15px_rgba(0,0,0,.05)] ">
+                    <div className="px-9 py-6.5 md:py-4 shadow-[0_0_30px_15px_rgba(0,0,0,.05)] rounded-sm">
                         <h2 className="h2 mb-3 mt-7 hidden max-md:block text-[1.3rem]">Course Materials</h2>
                         <div className="md:flex justify-between *:flex-1  gap-30 ">
                             {courseMat.map((item: any, i) => (
@@ -99,12 +99,12 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck :boolean}) => {
                     <CourseTopic {...{ user }} />
                 </div>
 
-                <div id="comments" className='col-start-1 row-start-3 max-md:mt-5 mx-1'>
+                <div id="comments" className='col-start-1 row-start-3 max-md:mt-5 mx-1 mt-3'>
                     {/* comments */}
                     <h2 className="h2 mb-3 tracking-wide ">Comments</h2>
                     <ul className="mb-10">
                         {comments.map(({ user, profilePicture, date, comment }, index) => (
-                            <li key={index} className="li mb-2" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
+                            <li key={index} className="li mb-5" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
                                 <div className="flex gap-4 sm:gap-7">
                                     <Image src={profilePicture} alt={user} width={300} height={0} className="w-15 h-15 sm:w-20 sm:h-20 rounded-full object-cover" />
                                     <div>

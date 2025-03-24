@@ -168,7 +168,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
 
       {startPlay &&
         <div onClick={() => mobileCheck && handleProcess('play-pause')}
-          className={`fade w-15 h-15 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black-50/81 flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
+          className={`fade w-15 h-15 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-[#000000bc] flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
         >
           {!mobileCheck ?
             (isPlaying ? <IoMdPlay /> : (!isEnd ? <IoMdPause /> : <IoReload />)) :

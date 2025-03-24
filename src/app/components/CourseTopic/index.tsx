@@ -97,9 +97,9 @@ const CourseTopic = ({ user }: any) => {
             .to(".progPercent", { opacity: 1, duration: 0.5 }, "-=0.3");
     }, [courseProg]);
     return (
-        <div className="lg:max-w-[410px] flex-1">
+        <div className="lg:max-w-[410px] flex-1 pr-1.5">
             <h3 className="h3 mb-14 ">Topics for This Course</h3>
-            <div className="w-full rounded-md bg-gray-200 h-[5px] relative">
+            <div className="w-[101%] -ml-1 rounded-md bg-gray-200 h-[5px] relative mb-17.5">
                 <div className={`courseProgbar bg-green-200 h-full rounded-md w-0 `} />
 
                 <div className="courseProg text-purple-100 absolute -top-11.5 text-xs -left-[0%] font-sans flex-center flex-col">
@@ -108,11 +108,11 @@ const CourseTopic = ({ user }: any) => {
                 </div>
             </div>
             {courseTopic.map(({ id, title, shortTitle, questions, body, ques, minutes, list }) => (
-                <div ref={ref} className={`border transition-all duration-300 border-gray-border   ${!mobileWidth ? 'p-6 py-8 mt-15' : 'py-6 mt-8'} ${mobileWidth &&
+                <div ref={ref} className={`border transition-all duration-300 border-gray-border   ${!mobileWidth ? 'p-4.5 py-8 mt-13' : 'py-6 mt-8'} ${mobileWidth &&
                     (topicMenuOpen != id && 'h-20')} overflow-hidden `} 
                     style={mobileWidth && topicMenuOpen === id ? { height: ref.current?.scrollHeight } : {}} key={id}>
                     <div className={`${mobileWidth && 'px-6 flex justify-between'}`}>
-                        <h4 className={`h4 ${mobileWidth && 'w-0'} flex-grow text-nowrap overflow-hidden text-ellipsis`}>
+                        <h4 className={`h4 ${mobileWidth && 'w-0'} ml-0.5 flex-grow text-nowrap overflow-hidden text-ellipsis`}>
                             {mobileWidth ?  shortTitle  :  title }
                         </h4>
                         {mobileWidth && (<>
@@ -129,7 +129,7 @@ const CourseTopic = ({ user }: any) => {
                         </>)}
                         
                     </div>
-                    <p className="body-1 pb-5 border-b-1 border-gray-border">{!mobileWidth && body}</p>
+                    <p className="body-1 pb-5 border-b-1 border-gray-border mt-1">{!mobileWidth && body}</p>
                     <ul>
                         {list.map((item, i) => (
                             <div key={i} >
@@ -150,9 +150,9 @@ const CourseTopic = ({ user }: any) => {
                                     className={`li ${mobileWidth && 'px-6'} ${(i == 2||i==list.length-1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0'}`}
                                 >
 
-                                    <Image className="-mt-1 " src={file} width={16} height={16} alt="file" />
-                                    <p className='mx-2 text-[1.15rem] leading-6 '>{item}</p>
-                                    {i != 2 && <Image className="ml-auto" src={lock} width={16} height={16} alt="lock" />}
+                                    <Image className="-mt-1 " src={file} width={14} height={14} alt="file" />
+                                    <p className='mx-1.5 text-[1.10rem] leading-6 font-[350]'>{item}</p>
+                                    {i != 2 && <Image className="ml-auto" src={lock} width={14} height={14} alt="lock" />}
                                     {i == 2 && (
                                         <div className="ml-auto flex flex-wrap justify-end gap-1.5 items-center">
                                             <span className="px-1.5 bg-[#f2faf8] rounded-[3px] text-[#57bbb7]">{ques} QUESTION</span>

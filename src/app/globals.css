@@ -118,7 +118,7 @@ body {
       @apply text-white bg-[#dc3545] border-[#dc3545] outline-0 [&:focus]:shadow-[0_0_0_3px_rgba(220,53,69,0.5)]
     }
     .li{
-      @apply flex items-center relative text-gray-700 border-b-1 border-gray-border py-5
+      @apply flex items-center relative text-gray-700 border-b-1 border-gray-border py-4
     }
     .button{
       @apply cursor-pointer mt-6 w-46 h-12 sm:w-54 sm:h-15 bg-green-300 rounded-sm text-white flex items-center justify-center  sm:text-lg transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-green-300
