@@ -2,7 +2,6 @@ import { arrowRight } from '@/utils'
 import Image from 'next/image'
 
 const Header = () => {
-  console.log('yahia')
   return (
     <header className='bg-gray-100 '>
       <div className="common-padding py-3 screen-max-width">
