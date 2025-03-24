@@ -19,7 +19,8 @@ import useVideoControls from './useVideoControls';
 import { PlayIcon } from '@/utils';
 
 
-const VideoPlayer = ({ onExpand, isWide, onStart }: { onExpand: (state: any) => void; onStart: (state: any) => void; isWide: boolean; }) => {
+const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
+  { onExpand: (state: any) => void; onStart: (state: any) => void; isWide: boolean; mobileCheck: boolean }) => {
 
   const {
     videoRef,
@@ -36,7 +37,6 @@ const VideoPlayer = ({ onExpand, isWide, onStart }: { onExpand: (state: any) => 
     isSettingOpen,
     volume,
     loadedData,
-    mobileCheck: mobileCheck,
     hideControl,
     isBuffering,
     setIsBuffering,
@@ -165,7 +165,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart }: { onExpand: (state: any) => 
       clearTimeout(timeout);
       // toggle controls Visiblity when video is paused
       const isCurrentlyVisible = controlContainerRef.current?.style.opacity === "1";
-      isCurrentlyVisible ? hideControls(0) : showControls();
+      isCurrentlyVisible && !controlRef.current?.contains(e.target) ? hideControls(0) : showControls();
 
       if (isPlaying) {
         timeout = setTimeout(() => {
@@ -294,7 +294,6 @@ const VideoPlayer = ({ onExpand, isWide, onStart }: { onExpand: (state: any) => 
     });
 
     progressBarRef.current!.addEventListener(start, (e: any) => {
-
       setVideo(pre => ({ ...pre, isEnd: false, isPlaying: false }));
       isDragging = true;
 
@@ -383,7 +382,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart }: { onExpand: (state: any) => 
           <div ref={progressBarRef} className={`relative w-full h-1 hover:h-[7px] draggable duration-75 transition-all bg-white/20 cursor-pointer `} id="progressBarRef">
             <span className="absolute w-full bottom-0 sm:-bottom-1 z-1 h-5 bg-transparent"></span>
             <div className="progress relative z-1" ref={progressRef} id="progress"></div>
-            <div className="w-0 h-full bg-[#aaaaaaa8] absolute top-0 " ref={bufferedRef}></div>
+            <div className="w-0 h-full bg-[#b3b3b39d] absolute top-0 " ref={bufferedRef}></div>
 
             <div className="preview" ref={previewRef}>
               <div className='rounded-md w-[150px] sm:w-[200px] aspect-video p-0.5 relative bg-white overflow-hidden'>

@@ -138,7 +138,8 @@ const CourseTopic = ({ user }: any) => {
                                     onClick={() => {
                                         (i == 2 && ques != 0) ? openExam(minutes, id, questions) : i == 2 && noExam();
                                         i==list.length-1&&(
-                                             showPopup({ title: '', html: <div className="mt-10"><PdfViewer /></div>,
+                                            showPopup({
+                                                title: '', html: <div className="mt-10"><PdfViewer fileUrl="assets/sample.pdf"/></div>,
                                                 action:()=>{
                                                     const popup = document.querySelector(".swal2-popup") as HTMLElement;
                                                     if (popup) {

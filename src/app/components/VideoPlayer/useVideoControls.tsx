@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 const useVideoControls = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -20,20 +20,18 @@ const useVideoControls = () => {
         isMute: false,
         isFullscreen: false
     })
+    const { isEnd, isFullscreen, isMute, startPlay, isPlaying } = video
 
     const [timeDisplay, settimeDisplay] = useState('0:00 / 0:00')
     const [isSettingOpen, setisSettingOpen] = useState(false)
     const [hideControl, sethideControl] = useState(false)
     const [volume, setvolume] = useState(1)
     const [loadedData, setloadedData] = useState<(string | Event)[]>([])
+    // const mobileCheck = /Mobi|Android/i.test(navigator.userAgent);
     const [isBuffering, setIsBuffering] = useState(false);
-    const [mobileCheck, setmobileCheck] = useState(false);
 
-    useEffect(() => {
-        setmobileCheck(/Mobi|Android/i.test(navigator.userAgent));
-    }, []);
 
-    /// Handel process of video play ,pause,etc...
+     /// Handel process of video play ,pause,etc...
     const handleProcess = (type: 'end' | 'mute' | 'fullscreen' | 'play-pause' | 'toggle-settings') => {
         setVideo((pre) => {
             switch (type) {
@@ -75,7 +73,6 @@ const useVideoControls = () => {
         isSettingOpen,
         volume,
         loadedData,
-        mobileCheck: mobileCheck,
         hideControl,
         isBuffering,
         setIsBuffering,

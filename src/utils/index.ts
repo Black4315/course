@@ -7,7 +7,6 @@ import book from '../../public/assets/svg/book.svg'
 import reading from '../../public/assets/svg/reading.svg'
 import file from '../../public/assets/svg/file.svg'
 import globe from '../../public/assets/svg/globe.svg'
-import window from '../../public/assets/svg/window.svg'
 import add from '../../public/assets/svg/add.svg'
 import arrowRight from '../../public/assets/svg/arrowRight.svg'
 import minimize from '../../public/assets/svg/minimize.svg'
@@ -33,7 +32,6 @@ export {
     clock,
     file,
     globe,
-    window,
     add,
     minimize,
     PlayIcon,

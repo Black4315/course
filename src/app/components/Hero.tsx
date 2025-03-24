@@ -14,15 +14,15 @@ type CommentType = {
     comment: string;
 };
 
-const Hero = ({ user }: any) => {
+const Hero = ({ user, mobileCheck }: { user: any; mobileCheck :boolean}) => {
     const [hydrated, setHydrated] = useState(false);
     const [comments, setcomments] = useState<CommentType[]>([])
     const [isWide, setIsWide] = useState(false);
     const [isVideoStart, setIsVideoStart] = useState(false);
-    const [mobileCheck, setmobileCheck] = useState(false);
+    // const [mobileCheck, setmobileCheck] = useState(false);
 
     useEffect(() => {
-        setmobileCheck(/Mobi|Android/i.test(navigator.userAgent));
+        // setmobileCheck(/Mobi|Android/i.test(navigator.userAgent));
         setHydrated(true);
     }, []);
 
@@ -40,12 +40,12 @@ const Hero = ({ user }: any) => {
             <div className="flex flex-col gap-7 lg:grid lg:grid-rows-[repeat(4,auto)] lg:grid-cols-[minmax(500px,750px)_auto] xl:grid-cols-[minmax(600px,750px)_auto]">
                 <div className={`${isWide ? 'col-span-2' : ''} ${(mobileCheck && isVideoStart && !isWide) && 'sticky top-0 shadow-sm z-9 px-3 sm:px-9 -mx-3 sm:-mx-9 -mt-5 py-3 pt-5 bg-white'}  flex flex-col  max-xl:col-span-2`}>
 
-                    <VideoPlayer onExpand={setIsWide} onStart={setIsVideoStart} isWide={isWide} />
+                    <VideoPlayer onExpand={setIsWide} onStart={setIsVideoStart} isWide={isWide} mobileCheck={mobileCheck} />
                     <ul className={`flex gap-3 mx-6 md:mx-2 lg:mt-10 ${(mobileCheck && isVideoStart) ? 'mt-3' : ' mt-5 '}`}>
                         {curriculm.map(({ Icon, tooltip, Action }, index) => (
                             <li key={index} 
                                 data-tooltip={tooltip} 
-                                onClick={() => {
+                                onClick={(e) => {
                                     if (typeof Action == 'string'){
                                         window.scrollTo({
                                             top: (mobileCheck && isVideoStart) ? document.getElementById("comments")!.offsetTop-300 :document.getElementById("comments")?.offsetTop
