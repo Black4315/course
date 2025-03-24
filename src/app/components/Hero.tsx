@@ -15,6 +15,7 @@ type CommentType = {
 };
 
 const Hero = ({ user, mobileCheck }: { user: any; mobileCheck :boolean}) => {
+    console.log('yahia')
     const [hydrated, setHydrated] = useState(false);
     const [comments, setcomments] = useState<CommentType[]>([])
     const [isWide, setIsWide] = useState(false);
