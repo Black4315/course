@@ -40,9 +40,9 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
     const videoSchema ={
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        name: "Course Overview Video",
-        description: "Get an overview of this course.",
-        thumbnailUrl: siteUrl +"assets/images/thumbnail.webp",
+        name: "Course Overview",
+        description: "Get an overview of this programing crash course.",
+        thumbnailUrl: siteUrl +"/assets/images/thumbnail.webp",
         uploadDate: "2025-03-26",
         duration:'PT3M30S',
         contentUrl: siteUrl + "/assets/videos/shahinVideo/360p.webm",
