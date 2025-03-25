@@ -99,7 +99,7 @@ const CourseTopic = ({ user }: any) => {
     return (
         <div className="lg:max-w-[410px] flex-1 pr-1.5">
             <h3 className="h3 mb-14 ">Topics for This Course</h3>
-            <div className="w-[101%] -ml-1 rounded-md bg-gray-200 h-[5px] relative mb-17.5">
+            <div className="sm:w-[101%] sm:-ml-1 rounded-md bg-gray-200 h-[5px] relative mb-17.5">
                 <div className={`courseProgbar bg-green-200 h-full rounded-md w-0 `} />
 
                 <div className="courseProg text-purple-100 absolute -top-11.5 text-xs -left-[0%] font-sans flex-center flex-col">

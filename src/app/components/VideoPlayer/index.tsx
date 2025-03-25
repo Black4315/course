@@ -328,7 +328,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
         progressRef.current && (progressRef.current.style.width = `${progressPercent}%`);
         videoRef.current.duration && settimeDisplay(formatTime(videoRef.current.currentTime) + ' / ' + formatTime(videoRef.current.duration));
         handleBuffer()
-
+        setIsBuffering(false)
       }
     });
 
@@ -336,10 +336,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
     videoRef.current.addEventListener('waiting', () => {
       setIsBuffering(true)
     })
-    videoRef.current.addEventListener('playing', () => {
-      setTimeout(()=>setIsBuffering(false),0)  ;
-      
-    });
+   
 
     videoRef.current.addEventListener('seeked', handleBuffer)
   };
