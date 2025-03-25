@@ -349,7 +349,6 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
         ref={videoRef}
         className={`${!startPlay && 'brightness-30 cursor-pointer object-cover h-full'} ${isWide && !isFullscreen ? 'max-h-[75svh] h-full' : ''} w-full ${isFullscreen && 'h-dvh'} `}
         preload="metadata"
-        controls={false}
         playsInline={true}
         onEnded={() => { handleProcess('end'); onStart(false) }}
         onPlay={() => setVideo((prev) => ({ ...prev, isEnd: false }))}
