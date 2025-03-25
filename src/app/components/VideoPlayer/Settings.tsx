@@ -18,8 +18,6 @@ const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setV
 
 
   const handleQualityChange = (newQuality: number) => {
-    setVideo((prev: any) => ({ ...prev, isPlaying: false }))
-
     const currentTime = videoRef.current?.currentTime || 0;
     videoRef.current?.setAttribute("src", `/assets/videos/shahinVideo/${newQuality}p.webm`);
     videoRef.current?.load();
