@@ -177,7 +177,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
         </div>
       }
 
-      <div className={`sec10 flex text-gray-50 ${mobileCheck ? 'h-[170%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-black-50/81 aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
+      <div className={`sec10 flex text-gray-50 ${mobileCheck ? 'h-[170%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
 
         <div className='flex-center flex-col text-center p-4'>
           <span className={`text-2xl flex  ${sec10 ? ' ' : '-rotate-180'} scale-y-80`}>

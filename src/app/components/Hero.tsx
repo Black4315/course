@@ -47,6 +47,11 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
         duration:'PT3M30S',
         contentUrl: siteUrl + "/assets/videos/shahinVideo/360p.webm",
         embedUrl: siteUrl ,
+        potentialAction: {
+            "@type": "SeekToAction",
+            "target": `${siteUrl}/assets/videos/shahinVideo/360p.webm#t={seek_to_second_number}`,
+            "startOffset-input": "required name=seek_to_second_number",
+        },
     }
 
     return (
