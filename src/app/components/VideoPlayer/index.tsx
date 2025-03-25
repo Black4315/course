@@ -337,7 +337,8 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       setIsBuffering(true)
     })
     videoRef.current.addEventListener('playing', () => {
-      setIsBuffering(false);
+      setTimeout(()=>setIsBuffering(false),0)  ;
+      
     });
 
     videoRef.current.addEventListener('seeked', handleBuffer)
