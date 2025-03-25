@@ -24,10 +24,9 @@ const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setV
     videoRef.current?.setAttribute("src", `/assets/videos/shahinVideo/${newQuality}p.webm`);
     videoRef.current?.load();
     videoRef.current!.currentTime = currentTime;
-    setTimeout(() => {
+    videoRef.current.oncanplay = () => {
       setVideo((prev: any) => ({ ...prev, isPlaying: true }))
-      
-    }, 350);
+    };
   };
 
   useEffect(() => {
