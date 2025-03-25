@@ -11,10 +11,11 @@ import { courseTopic } from "@/constants";
 import Swal from "sweetalert2";
 import { ScrollTrigger } from "gsap/all";
 import PdfViewer from "../PdfViewer";
+import { Skeleton } from "@mui/material";
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CourseTopic = ({ user }: any) => {
+const CourseTopic = ({ user, hydrated }: any) => {
     const ref = useRef<HTMLDivElement | null>(null);
     const [courseProg, setCourseProg] = useState(0)
     const [mobileWidth, setmobileWidth] = useState(false)
@@ -31,7 +32,7 @@ const CourseTopic = ({ user }: any) => {
         id: -1,
         questions: [],
     });
-    const { id, questions, Order,  } = exam
+    const { id, questions, Order, } = exam
 
 
     /////////////////////////////////////////////////// exam part
@@ -42,7 +43,7 @@ const CourseTopic = ({ user }: any) => {
             icon: "error"
         });
     }
-    const openExam = (time: number,id:number, questions: { question: string; answers: string[] }[] | undefined) => {
+    const openExam = (time: number, id: number, questions: { question: string; answers: string[] }[] | undefined) => {
         showAlert({
             title: '<h1 class="text-xl font-bold text-blue-600 mb-2">🚀 اختبار سريع!</h1>',
             text: '', icon: 'info', comfirm: '🚀 يلا بينا!', cancel: "No, cancel!", action: () => {
@@ -109,11 +110,12 @@ const CourseTopic = ({ user }: any) => {
             </div>
             {courseTopic.map(({ id, title, shortTitle, questions, body, ques, minutes, list }) => (
                 <div ref={ref} className={`border transition-all duration-300 border-gray-border   ${!mobileWidth ? 'p-4.5 py-8 mt-13' : 'py-6 mt-8'} ${mobileWidth &&
-                    (topicMenuOpen != id && 'h-20')} overflow-hidden `} 
+                    (topicMenuOpen != id && 'h-20')} overflow-hidden `}
                     style={mobileWidth && topicMenuOpen === id ? { height: ref.current?.scrollHeight } : {}} key={id}>
-                    <div className={`${mobileWidth && 'px-6 flex justify-between'}`}>
+
+                    {hydrated ? <><div className={`${mobileWidth && 'px-6 flex justify-between'}`}>
                         <h4 className={`h4 ${mobileWidth && 'w-0'} ml-0.5 flex-grow text-nowrap overflow-hidden text-ellipsis`}>
-                            {mobileWidth ?  shortTitle  :  title }
+                            {mobileWidth ? shortTitle : title}
                         </h4>
                         {mobileWidth && (<>
                             <Image
@@ -122,14 +124,19 @@ const CourseTopic = ({ user }: any) => {
                                 src={topicMenuOpen == id ? add : minimize}
                                 width={24}
                                 height={24}
-                                alt="toggle" 
-                                style={{ height: "auto", width: 'auto' }} 
+                                alt="toggle"
+                                style={{ height: "auto", width: 'auto' }}
 
-                                />
+                            />
                         </>)}
-                        
+
                     </div>
-                    <p className="body-1 pb-5 border-b-1 border-gray-border mt-1">{!mobileWidth && body}</p>
+                        <p className="body-1 pb-5 border-b-1 border-gray-border mt-1">{!mobileWidth && body}</p></>
+                        : (<div className="mb-10">
+                            <Skeleton variant="text" width={'30%'} />
+                            <Skeleton variant="text" width={'100%'} />
+                            <Skeleton variant="text" width={'100%'} />
+                        </div>)}
                     <ul>
                         {list.map((item, i) => (
                             <div key={i} >
@@ -137,28 +144,31 @@ const CourseTopic = ({ user }: any) => {
                                 <li
                                     onClick={() => {
                                         (i == 2 && ques != 0) ? openExam(minutes, id, questions) : i == 2 && noExam();
-                                        i==list.length-1&&(
+                                        i == list.length - 1 && (
                                             showPopup({
-                                                title: '', html: <div className="mt-10"><PdfViewer fileUrl="assets/sample.pdf"/></div>,
-                                                action:()=>{
+                                                title: '', html: <div className="mt-10"><PdfViewer fileUrl="assets/sample.pdf" /></div>,
+                                                action: () => {
                                                     const popup = document.querySelector(".swal2-popup") as HTMLElement;
                                                     if (popup) {
                                                         popup.style.background = 'linear-gradient(0deg, #5a78fc 0%, #3e54b5 100%)'
                                                     }
-                                                },props:{focusCancel:false}})
-                                        )}}
-                                    className={`li ${mobileWidth && 'px-6'} ${(i == 2||i==list.length-1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0'}`}
+                                                }, props: { focusCancel: false }
+                                            })
+                                        )
+                                    }}
+                                    className={`li ${mobileWidth && 'px-6'} ${(i == 2 || i == list.length - 1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0'}`}
                                 >
 
-                                    <Image className="-mt-1 " src={file} width={14} height={14} alt="file" />
-                                    <p className='mx-1.5 text-[1.10rem] leading-6 font-[350]'>{item}</p>
-                                    {i != 2 && <Image className="ml-auto" src={lock} width={14} height={14} alt="lock" />}
-                                    {i == 2 && (
-                                        <div className="ml-auto flex flex-wrap justify-end gap-1.5 items-center">
-                                            <span className="px-1.5 bg-[#f2faf8] rounded-[3px] text-[#57bbb7]">{ques} QUESTION</span>
-                                            <span className="px-1.5 bg-[#fdf2f4] rounded-[3px] text-[#e5556f]">{minutes} MINUTE{minutes > 2 && 'S'}</span>
-                                        </div>
-                                    )}
+                                    {hydrated ? (<> <Image className="-mt-1 " src={file} width={14} height={14} alt="file" />
+                                        <p className='mx-1.5 text-[1.10rem] leading-6 font-[350]'>{item}</p>
+                                        {i != 2 && <Image className="ml-auto" src={lock} width={14} height={14} alt="lock" />}
+                                        {i == 2 && (
+                                            <div className="ml-auto flex flex-wrap justify-end gap-1.5 items-center">
+                                                <span className="px-1.5 bg-[#f2faf8] rounded-[3px] text-[#57bbb7]">{ques} QUESTION</span>
+                                                <span className="px-1.5 bg-[#fdf2f4] rounded-[3px] text-[#e5556f]">{minutes} MINUTE{minutes > 2 && 'S'}</span>
+                                            </div>
+                                        )}
+                                    </>) : (<Skeleton variant="text" width={'100%'} />)}
                                 </li>
                             </div>
                         ))}

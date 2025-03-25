@@ -5,10 +5,10 @@ import "./globals.css";
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
   title: "Course Details",
-  description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis ut officiis aliquam suscipit deleniti velit ab consequuntur,",
-  openGraph:{
+  description: "Master programing with our crash course. From foundational skills to advanced techniques — build, deploy, and elevate your apps like a pro!",
+    openGraph:{
     title: "Course Details",
-    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis ut officiis aliquam suscipit deleniti velit ab consequuntur,",
+    description: "Master programing with our crash course. From foundational skills to advanced techniques — build, deploy, and elevate your apps like a pro!",
     url: siteUrl,
     siteName:'Course Platform',
     locale:'en-US',

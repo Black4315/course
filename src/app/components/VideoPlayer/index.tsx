@@ -71,7 +71,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
     if (!mobileCheck && !isPlaying) {
       setTimeout(() => {
         startPlay ? animshowhide('#controls', true) : animshowhide('#controls', false)
-      }, 50);
+      }, timeoutVisibility);
     }
     else {
       if (isSettingOpen) {
@@ -89,6 +89,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
 
   }, [loadedData, startPlay, isPlaying, isSettingOpen, hideControl])
 
+  
   useEffect(() => {
     if (videoRef.current && progressBarRef.current) {
       //progress
@@ -445,7 +446,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
 
         </div>
 
-        <Settings {...{ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo }} />
+        <Settings {...{ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo, setIsBuffering }} />
       </div>
       {/* controls */}
     </div>

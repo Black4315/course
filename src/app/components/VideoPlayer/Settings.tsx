@@ -6,8 +6,9 @@ import { MdOutlineHighQuality, MdSpeed } from 'react-icons/md';
 import { GrFormCheckmark } from 'react-icons/gr';
 
 
-const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo }:
-  { isSettingOpen: boolean; settingsBtn: any; setisSettingOpen: (state: any) => void; videoRef: any; setVideo: (state: any) => void; }) => {
+const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo , setIsBuffering}:
+  { isSettingOpen: boolean; settingsBtn: any; setisSettingOpen: (state: any) => void; videoRef: any; 
+    setVideo: (state: any) => void; setIsBuffering: (state: any)=>void }) => {
 
   const settingRef = useRef<HTMLDivElement | null>(null)
   const mobileCheck = /Mobi|Android/i.test(navigator.userAgent);
@@ -18,12 +19,23 @@ const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setV
 
 
   const handleQualityChange = (newQuality: number) => {
-    const currentTime = videoRef.current?.currentTime || 0;
-    videoRef.current?.setAttribute("src", `/assets/videos/shahinVideo/${newQuality}p.webm`);
-    videoRef.current?.load();
+    if(!videoRef.current ) return;
+
+    const currentTime = videoRef.current.currentTime || 0;
+    const source_ele =  videoRef.current.querySelector('source')
+    let video_src = `/assets/videos/shahinVideo/${newQuality}p.webm`
+
+    // if only source not loaded
+    source_ele.src != video_src && source_ele.setAttribute("src", video_src);
+    
+    setIsBuffering(true)
+    videoRef.current.load();
     videoRef.current!.currentTime = currentTime;
+
+    // to active loader spin
     videoRef.current.oncanplay = () => {
-      setVideo((prev: any) => ({ ...prev, isPlaying: true }))
+      
+      setVideo((prev: any) => ({ ...prev, isPlaying: prev.isPlaying? true : false }))
     };
   };
 
