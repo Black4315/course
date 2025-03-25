@@ -353,11 +353,13 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
         playsInline={true}
         onEnded={() => { handleProcess('end'); onStart(false) }}
         onPlay={() => setVideo((prev) => ({ ...prev, isEnd: false }))}
-        onClick={() => setVideo((prev) => ({ ...prev, startPlay: true, isPlaying: true }))}
+        onClick={(e) => {
+          e.currentTarget.removeAttribute("poster"), setIsBuffering(true), setVideo((prev) => ({ ...prev, startPlay: true, isPlaying: true }))
+        }}
         onLoadedMetadata={(e) => handleMetaData(e)}
         poster='/assets/images/thumbnail.webp'
       >
-        <source src={`/assets/videos/shahinVideo/480p.webm`} type="video/webm" />
+        <source src={`/assets/videos/shahinVideo/360p.webm`} type="video/webm" />
 
       </video>
       {isBuffering && (
