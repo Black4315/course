@@ -25,6 +25,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
     useEffect(() => {
         setHydrated(true);
         document.body.style.overflowY = 'auto'
+        document.body.style.pointerEvents = 'auto'
     }, []);
 
 

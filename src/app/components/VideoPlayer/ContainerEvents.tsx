@@ -185,7 +185,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
             <IoCaretForwardSharp className='-mr-2 opacity-30 icon-sec' />
             <IoCaretForwardSharp className='opacity-30 icon-sec' />
           </span>
-          <span className='text-xs text-nowrap'>{sec10 ? '+' : '-'}{mobileCheck ? '10' : '5'} secounds</span>
+          <span className='text-xs text-nowrap'>{sec10 ? '+' : '-'} {mobileCheck ? '10' : '5'} secounds</span>
         </div>
       </div>
 
