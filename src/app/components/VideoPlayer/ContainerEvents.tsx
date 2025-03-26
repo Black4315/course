@@ -60,7 +60,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
   }, [])
 
   const volAnim = useCallback(() => {
-    simpleAnim('volumIncontainer', { opacity: 1, duration: 0, onComplete: () => gsap.to('#volumIncontainer', { opacity: 0, duration: 0, delay: .5 }) })
+    simpleAnim('volumIncontainer', { opacity: 1, duration: 0, onComplete: () => gsap.to('#volumIncontainer', { opacity: 0, duration: 0, delay: 1 }) })
   }, [])
 
   const clickContainer = () => {
@@ -158,7 +158,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       isFirstRender.current = false; 
       return; 
     }
-    setTimeout(() => volAnim(), 0)
+    volAnim()
   }, [volume])
 
   return (

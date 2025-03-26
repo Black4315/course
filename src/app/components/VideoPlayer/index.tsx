@@ -96,9 +96,8 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       handleProgress()
 
       // mute/unmute
-      videoRef.current.muted = isMute
-      handleVolume(volume)
-
+      videoRef.current.muted = isMute;
+      setvolume(prev=>(!isMute && volume <= 0 ? 0.1:prev))
 
       // fullscreen
       if (isFullscreen) {
@@ -126,16 +125,17 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       }
     }
   }, [isFullscreen, isMute, volume])
-
+  
+  useEffect(() => handleVolume(volume),[volume])
 
   // Updates loaded metadata when a video loads   
   const handleMetaData = (e: any) => setloadedData(pre => [...pre, e]);
 
   // handle volume
   const handleVolume = (volume: number) => {
-
-    videoRef.current!.volume = volume
+    
     setvolume(volume)
+    videoRef.current!.volume = volume
     setVideo((pre) => ({ ...pre, isMute: volume == 0 }))
   }
 
