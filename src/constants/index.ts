@@ -1,5 +1,5 @@
-import AskQues from '@/app/components/AskQues';
-import LeaderBoard from '@/app/components/LeaderBoard';
+import AskQues from '@/components/AskQues';
+import LeaderBoard from '@/components/LeaderBoard';
 import {
     book,
     reading,

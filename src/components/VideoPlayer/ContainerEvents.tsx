@@ -4,7 +4,7 @@ import { IoMdPause } from "react-icons/io";
 import { IoMdPlay } from "react-icons/io";
 import gsap from 'gsap';
 import { IoCaretForwardSharp, IoReload, IoVolumeHighSharp, IoVolumeMuteSharp } from 'react-icons/io5';
-import { simpleAnim } from '@/app/lib';
+import { simpleAnim } from '@/lib';
 
 
 type ContainerEventsProps = {
@@ -155,8 +155,8 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
 
   useEffect(() => {
     if (isFirstRender.current) {
-      isFirstRender.current = false; 
-      return; 
+      isFirstRender.current = false;
+      return;
     }
     volAnim()
   }, [volume])

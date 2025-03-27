@@ -1,8 +1,8 @@
 "use client"
-import { showAlert, useExamTimer } from '@/app/lib';
+import { showAlert, useExamTimer } from '@/lib';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import React, {  useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LuAlarmClock } from 'react-icons/lu';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import { toast, } from 'react-toastify';
@@ -170,7 +170,7 @@ const Exam = (
 
       <div className="grow-[.7]" >
         <form action="" method='POST' ref={formRef} className={`${isSubmitted && 'pointer-events-none'}`}>
-          <input type="hidden" name="exam_id" value={id}/>
+          <input type="hidden" name="exam_id" value={id} />
           <div id="exam_slider" className="relative flex w-[98%] gap-2.5">
 
             {questions?.map(({ question, answers }, i) => (
