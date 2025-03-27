@@ -1,5 +1,5 @@
 "use cdivent"
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { FaArrowUpLong } from "react-icons/fa6";
 
 const AskQues = ({user}:any) => {
@@ -9,7 +9,7 @@ const AskQues = ({user}:any) => {
   );
 
   const {user_messages , res_messages} = messages
-
+  const textContent = useRef<HTMLTextAreaElement>(null)
 
   useEffect(()=>{
     sessionStorage.askInput = input
@@ -23,14 +23,21 @@ const AskQues = ({user}:any) => {
 
     if(!(data.message as string).trim()) return 
 
+    console.log(data.message)
     user_messages.push(data.message)
     setMessages((prev: any) => ({ ...prev, user_messages: user_messages }))
     setInput("");
+
+    setTimeout(() => handleInput(), 0)
   };
   
-  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.style.height = "auto"; // Reset height
-    e.target.style.height = `${e.target.scrollHeight}px`; // Expand to fit content
+
+  const handleInput = (e?: React.ChangeEvent<HTMLTextAreaElement>) => {
+    let ele = e?.target ? e?.target:textContent.current
+
+    console.log(ele)
+    ele!.style.height = "auto"; 
+    ele!.style.height = `${ele!.scrollHeight}px`; 
   };
 
 
@@ -47,6 +54,7 @@ const AskQues = ({user}:any) => {
       const form = e.currentTarget.closest("form") as HTMLFormElement;
       
       form?.requestSubmit()
+
     }
   };
 
@@ -58,7 +66,7 @@ const AskQues = ({user}:any) => {
         <div className="px-2 w-full">
           {user_messages.map((mess:string,i:number)=>(
             <div key={i} className="flex justify-end">
-              <div className="rounded-3xl px-5 py-2.5 max-w-50 w-max bg-gray-message_surface my-2">{mess}</div>
+              <div className="rounded-3xl px-5 py-2.5 max-w-50 w-max bg-gray-message_surface my-2 whitespace-pre-wrap text-right">{mess}</div>
             </div>
           ))}
         </div>
@@ -73,6 +81,7 @@ const AskQues = ({user}:any) => {
           value={input}
           onChange={(e) => { setInput(e.target.value); handleInput(e)}}
           onKeyDown={handleKeyDown}
+          ref={textContent}
           dir="rlt"
           className="min-h-16 font-arabic outline-none px-4 py-2 text-gray-700 max-h-40 flex-grow resize-none w-full text-right"
         />

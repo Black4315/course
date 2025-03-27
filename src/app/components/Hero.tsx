@@ -24,8 +24,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
 
     useEffect(() => {
         setHydrated(true);
-        document.body.style.overflowY = 'auto'
-        document.body.style.pointerEvents = 'auto'
+        document.body.classList.add('overflow-y-auto','pointer-events-auto')
     }, []);
 
 
@@ -38,16 +37,16 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
     }, [])
 
     const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const videoSchema ={
+    const videoSchema = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
         name: "Course Overview",
         description: "Get an overview of this programing crash course.",
-        thumbnailUrl: siteUrl +"/assets/images/thumbnail.webp",
+        thumbnailUrl: siteUrl + "/assets/images/thumbnail.webp",
         uploadDate: "2025-03-26",
-        duration:'PT3M30S',
+        duration: 'PT3M30S',
         contentUrl: siteUrl + "/assets/videos/shahinVideo/360p.webm",
-        embedUrl: siteUrl ,
+        embedUrl: siteUrl,
         potentialAction: {
             "@type": "SeekToAction",
             "target": `${siteUrl}/assets/videos/shahinVideo/360p.webm#t={seek_to_second_number}`,
@@ -59,13 +58,13 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
         <>
             <Head>
                 <title>Course Details</title>
-                <meta name="description" content="Master programing with our crash course. From foundational skills to advanced techniques — build, deploy, and elevate your apps like a pro!" />
+                <meta name="description" content="Master SEO from the ground up with our ultimate crash course! Learn essential skills, uncover advanced strategies, and elevate your website to dominate search rankings like a pro." />
 
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
             </Head>
             <section className='common-padding py-4.5 screen-max-width mb-10'>
                 <div className="flex flex-col gap-7 lg:grid lg:grid-rows-[repeat(4,auto)] lg:grid-cols-[minmax(500px,750px)_auto] xl:grid-cols-[minmax(600px,750px)_auto]">
-                    <div className={`${isWide ? 'col-span-2' : ''} ${(mobileCheck && isVideoStart && !isWide) && 'sticky top-0 shadow-sm z-9 px-3 sm:px-9 -mx-3 sm:-mx-9 -mt-5 py-3 pt-5 bg-white'}  flex flex-col  max-xl:col-span-2`}>
+                    <div className={`${isWide ? 'col-span-2' : ''} ${(mobileCheck && isVideoStart && !isWide) && 'sticky top-0 shadow-sm z-9 px-3 sm:px-9 -mx-3 sm:-mx-9 -mt-5 py-3 pt-5 bg-white'}  flex flex-col  max-xl:col-span-2 `}>
 
                         <VideoPlayer onExpand={setIsWide} onStart={setIsVideoStart} isWide={isWide} mobileCheck={mobileCheck} />
                         <ul className={`flex gap-3 mx-6 md:mx-2 lg:mt-10 ${(mobileCheck && isVideoStart) ? 'mt-3' : ' mt-5 '}`}>
@@ -75,7 +74,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                     onClick={(e) => {
                                         if (typeof Action == 'string') {
                                             window.scrollTo({
-                                                top: (mobileCheck && isVideoStart) ? document.getElementById("comments")!.offsetTop - 300 : document.getElementById("comments")?.offsetTop
+                                                top: (mobileCheck && isVideoStart && !isWide) ? document.getElementById("comments")!.offsetTop - 300 : document.getElementById("comments")?.offsetTop
                                             })
                                         } else {
                                             showPopup({
