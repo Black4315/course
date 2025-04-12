@@ -27,4 +27,4 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 MIT License © 2025 Yahia Badr
 
 ## 🌐 Demo
-[Live Demo](#) (https://course-teal-ten.vercel.app)
+[Live Demo](https://course-teal-ten.vercel.app)
