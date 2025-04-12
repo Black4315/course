@@ -1,6 +1,6 @@
 # 📚 Course Platform
 
-A modern, fully-responsive course platform built with **React**, **Next.js**, **GSAP**, **Tailwind CSS**, and dynamic **API data**. This platform provides an engaging experience for users, showcasing a course roadmap, reviews, leaderboard, and various interactive features.
+A modern, fully-responsive course platform built with **React**, **Next.js**, **TypeScript**, **GSAP**, **Tailwind CSS**, and dynamic **API data**. This platform provides an engaging experience for users, showcasing a course roadmap, reviews, leaderboard, and various interactive features.
 
 ## ✨ Features
 - **Course Roadmap**: Displays the structured journey through the course.
@@ -15,6 +15,7 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 ## 🚀 Tech Stack
 - **React**
 - **Next.js**
+- **TypeScript**
 - **GSAP** (for animations)
 - **Tailwind CSS**
 - **APIs** (for dynamic data fetching)
