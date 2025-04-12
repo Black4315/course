@@ -88,9 +88,9 @@ export const courseTopic = [
 ];
 
 export const curriculm = [
-    { tooltip: 'Comments', Icon: FaRegCommentDots, Action: '#comment' },
-    { tooltip: 'Leader board', Icon: MdOutlineLeaderboard, Action: LeaderBoard },
-    { tooltip: 'Ask me', Icon: MdQuestionMark, Action: AskQues }
+    { tooltip: 'Comments', Icon: FaRegCommentDots, link: 'comments', },
+    { tooltip: 'Leader board', Icon: MdOutlineLeaderboard,link: 'leaderboard', Action: LeaderBoard },
+    { tooltip: 'Ask me', Icon: MdQuestionMark,link: 'askme', Action: AskQues }
 ];
 export const courseMat = [
     [

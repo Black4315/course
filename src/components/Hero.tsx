@@ -8,6 +8,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { showPopup } from "../lib";
 import { duration, Skeleton } from "@mui/material";
 import Head from "next/head";
+import Link from "next/link";
 
 type CommentType = {
     user: string;
@@ -24,7 +25,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
 
     useEffect(() => {
         setHydrated(true);
-        document.body.classList.add('overflow-y-auto','pointer-events-auto')
+        document.body.classList.add('overflow-y-auto', 'pointer-events-auto')
     }, []);
 
 
@@ -68,13 +69,14 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
 
                         <VideoPlayer onExpand={setIsWide} onStart={setIsVideoStart} isWide={isWide} mobileCheck={mobileCheck} />
                         <ul className={`flex gap-3 mx-6 md:mx-2 lg:mt-10 ${(mobileCheck && isVideoStart) ? 'mt-3' : ' mt-5 '}`}>
-                            {curriculm.map(({ Icon, tooltip, Action }, index) => (
+                            {curriculm.map(({ Icon, tooltip, Action, link }, index) => (
                                 <li key={index}
                                     data-tooltip={tooltip}
                                     onClick={(e) => {
-                                        if (typeof Action == 'string') {
+                                        !Action && window.history.pushState({}, '', '/#' + link);
+                                        if (!Action) {
                                             window.scrollTo({
-                                                top: (mobileCheck && isVideoStart && !isWide) ? document.getElementById("comments")!.offsetTop - 300 : document.getElementById("comments")?.offsetTop
+                                                top: (mobileCheck && isVideoStart && !isWide) ? document.getElementById(link)!.offsetTop - 300 : document.getElementById(link)?.offsetTop
                                             })
                                         } else {
                                             showPopup({
@@ -92,7 +94,10 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                             })
                                         }
                                     }}
-                                    className="group p-3 relative border duration-300 hover:bg-gray-400 hover:border-gray-400 transition-all border-gray-200 rounded-full cursor-pointer">
+                                    onKeyDown={(e) => (e.key === ' ') &&(e.preventDefault(), e.currentTarget.click())}
+                                    role="button"
+                                    tabIndex={0}
+                                    className="group p-3 relative border duration-300 hover:bg-gray-400 hover:border-gray-400 transition-all border-gray-200 rounded-full cursor-pointer focus">
 
                                     <Icon className="text-gray-400 transition-all group-hover:text-white text-lg" key={index} />
                                 </li>
@@ -155,9 +160,11 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                     <input type="hidden" name="id" value={user.id} />
                                     <input type="hidden" name="username" value={user.username} />
                                     <textarea
+                                        role="textbox"
+                                        tabIndex={0}
                                         name="comment"
                                         placeholder="Write a comment"
-                                        className="w-full h-42 rounded-sm p-5 text-[#939393] text-lg font-medium md:text-xl resize-y border-none shadow-[0_0_30px_15px_rgba(0,0,0,.07)] outline-none min-h-25 max-h-100"
+                                        className="w-full h-42 rounded-sm p-5 text-[#939393] text-lg font-medium md:text-xl resize-y border-none shadow-[0_0_30px_15px_rgba(0,0,0,.07)] outline-none min-h-25 max-h-100 "
                                     ></textarea>
                                     <button type="submit" className="button gap-3 ">
                                         Submit Review <FaArrowRightLong />

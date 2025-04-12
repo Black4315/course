@@ -95,7 +95,9 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (startPlay) {
+      const isInputFocused = ['input', 'textarea', 'select', 'button', 'a'].includes(document.activeElement!.tagName.toLowerCase());
+
+      if (startPlay && (!isInputFocused || document.querySelector('.video-container')?.contains(document.activeElement))) {
         if (typeof +e.key == 'number' && +e.key <= 9 && +e.key >= 0 && e.key !== ' ') {
 
           let percent: number = (+e.key * 0.1)

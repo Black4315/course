@@ -346,14 +346,17 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
     <div className={`${isWide ? 'max-h-[75svh]' : 'max-w-[750px]'} video-container aspect-[3/2] flex-center relative bg-black select-none`}>
       <video
         ref={videoRef}
-        className={`${!startPlay && 'brightness-30 cursor-pointer object-cover h-full'} ${isWide && !isFullscreen ? 'max-h-[75svh] h-full' : ''} w-full ${isFullscreen && 'h-dvh'} `}
+        className={`${!startPlay && 'brightness-30 cursor-pointer object-cover h-full'} ${isWide && !isFullscreen ? 'max-h-[75svh] h-full' : ''} w-full ${isFullscreen && 'h-dvh'} peer `}
         preload="metadata"
         playsInline={true}
+        tabIndex={0}
         onEnded={() => { handleProcess('end'); onStart(false) }}
         onPlay={() => setVideo((prev) => ({ ...prev, isEnd: false }))}
         onClick={(e) => {
+          e.currentTarget.blur();
           e.currentTarget.removeAttribute("poster"), setIsBuffering(true), setVideo((prev) => ({ ...prev, startPlay: true, isPlaying: true }))
         }}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), e.currentTarget.click())}
         onLoadedMetadata={(e) => handleMetaData(e)}
         poster='/assets/images/thumbnail.webp'
       >
@@ -370,7 +373,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       {!startPlay && <div
         className='w-15 h-15 md:w-20 md:h-20 text-xl sm:text-2xl top-1/2 left-1/2 
                 -translate-x-1/2 -translate-y-1/2 rounded-full z-1 bg-white pointer-events-none
-                absolute flex-center text-red-200 '
+                absolute flex-center text-red-200 peer-focus:border-1 peer-focus:border-red-200'
       ><PlayIcon /></div>
       }
 
@@ -395,7 +398,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
 
           <div className='controlbtns' >
             <div className='flex items-center gap-3 sm:gap-5'>
-              <button id="playPauseBtn" onClick={() => handleProcess('play-pause')} data-tooltip={(isPlaying ? 'Pause' : 'Play') + ' (k)'} className='video-btn'>
+              <button id="playPauseBtn" onClick={() => handleProcess('play-pause')} aria-label={(isPlaying ? 'Pause' : 'Play')} data-tooltip={(isPlaying ? 'Pause' : 'Play') + ' (k)'} className='video-btn'>
                 {isPlaying ? <IoMdPause /> : (!isEnd ? <IoMdPlay /> : <IoReload />)}
               </button>
 
@@ -406,6 +409,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
                 >
                   <button id="sound-btn"
                     onClick={() => handleProcess('mute')}
+                    aria-label={(isMute ? 'Unmute' : 'Mute')}
                     data-tooltip={(isMute ? 'Unmute' : 'Mute') + ' (m)'} className='video-btn'>
                     {isMute ? <IoVolumeMuteSharp /> : <IoVolumeHighSharp />}
                   </button>
@@ -428,14 +432,16 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
             </div>
 
             <div className='flex items-center gap-4 sm:gap-6' >
-              <button data-tooltip={'Settings'} onClick={() => handleProcess('toggle-settings')}
+              <button data-tooltip={'Settings'} aria-label={'Settings'} onClick={() => handleProcess('toggle-settings')}
                 className={`video-btn ${isSettingOpen ? 'rotate-[30deg]' : 'rotate-0'}`}>{<IoMdSettings />}</button>
 
-              {(!mobileCheck) && (<button className={`video-btn ${isFullscreen && 'hidden'}`} data-tooltip={isWide ? 'Shrink' : 'Expnad'} onClick={(e) => onExpand((prev: any) => !prev)}>
+              {(!mobileCheck) && (<button className={`video-btn ${isFullscreen && 'hidden'}`} data-tooltip={isWide ? 'Shrink' : 'Expnad'} aria-label={isWide ? 'Shrink' : 'Expnad'} onClick={(e) => onExpand((prev: any) => !prev)}>
                 {isWide ? <RiCollapseHorizontalLine /> : <RiExpandHorizontalLine />}
               </button>)}
 
-              <button data-tooltip={(!isFullscreen ? 'Full screen' : 'Exit full screen') + ' (f)'}
+              <button 
+                aria-label={(!isFullscreen ? 'Full screen' : 'Exit full screen')} 
+                data-tooltip={(!isFullscreen ? 'Full screen' : 'Exit full screen') + ' (f)'}
                 onClick={() => handleProcess('fullscreen')}
                 className='video-btn '
               >

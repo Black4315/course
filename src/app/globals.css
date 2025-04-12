@@ -75,6 +75,9 @@ body {
     
   }
   @layer components{
+    .focus{
+      @apply focus:outline-none focus-visible:ring
+    }
     .flex-center {
       @apply flex items-center justify-center
     }

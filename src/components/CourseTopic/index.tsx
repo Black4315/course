@@ -141,7 +141,7 @@ const CourseTopic = ({ user, hydrated }: any) => {
                         {list.map((item, i) => (
                             <div key={i} >
 
-                                <li
+                                <li 
                                     onClick={() => {
                                         (i == 2 && ques != 0) ? openExam(minutes, id, questions) : i == 2 && noExam();
                                         i == list.length - 1 && (
@@ -156,7 +156,10 @@ const CourseTopic = ({ user, hydrated }: any) => {
                                             })
                                         )
                                     }}
-                                    className={`li ${mobileWidth && 'px-6'} ${(i == 2 || i == list.length - 1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0'}`}
+                                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(),e.currentTarget.click())}
+                                    role="button"
+                                    tabIndex={1}
+                                    className={`li ${mobileWidth && 'px-6'} ${(i == 2 || i == list.length - 1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0 '} focus`}
                                 >
 
                                     {hydrated ? (<> <Image className="-mt-1 " src={file} width={14} height={14} alt="file" />
