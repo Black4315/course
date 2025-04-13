@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Head from "next/head";
 
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -27,8 +28,8 @@ export const metadata: Metadata = {
         height: 720
       }
     ]
-
-  }
+  },
+  
 };
 
 export default function RootLayout({
@@ -38,6 +39,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={siteUrl} />
+        <meta name="apple-mobile-web-app-title" content="Course Platform" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+      </Head>
       <body
         className={``} //antialiased
       >
