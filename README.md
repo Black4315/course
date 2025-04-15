@@ -22,7 +22,7 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 
 ## 📸 Snapshot
 
-![Course Platform Snapshot](/assets/images/screenshot.png)
+![Course Platform Snapshot](./public/assets/images/screenshot.png)
 
 ## 🌐 Demo
 🔗 [visit live site](https://course-teal-ten.vercel.app)
