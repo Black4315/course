@@ -288,12 +288,22 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       progressRef.current!.style.width = `${(newTime / videoRef.current!.duration) * 100}%`
     }
 
+  // preview handler event
     progressBarRef.current.addEventListener(!mobileCheck ? 'mouseenter' : start, (e: any) => {
-      updatePreview(e)
-      progressBarRef.current!.addEventListener(move, (e) => updatePreview(e));
-      progressBarRef.current!.addEventListener(!mobileCheck ? 'mouseleave' : end, () => { previewRef.current!.style.display = 'none' });
-    });
+      updatePreview(e);
+      progressBarRef.current!.addEventListener(move, updatePreview);
 
+      const leaveHandler = () => {
+        previewRef.current!.style.display = 'none';
+        progressBarRef.current!.removeEventListener(move, updatePreview);
+        progressBarRef.current!.removeEventListener(!mobileCheck ? 'mouseleave' : end, leaveHandler);
+      };
+
+      progressBarRef.current!.addEventListener(!mobileCheck ? 'mouseleave' : end, leaveHandler);
+    });
+  // preview handler event
+
+  // progress handler event
     progressBarRef.current!.addEventListener(start, (e: any) => {
       setVideo(pre => ({ ...pre, isEnd: false, isPlaying: false }));
       isDragging = true;
@@ -320,6 +330,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       document.addEventListener(move, moveHandler);
       document.addEventListener(end, endHandler);
     });
+  // progress handler event
 
 
     // Update main progress bar
