@@ -27,5 +27,12 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 ## 🌐 Demo
 🔗 [visit live site](https://course-teal-ten.vercel.app)
 
+## 🧑‍💻 Let's Work Together
+
+I’m open for custom projects and freelance work!
+
+📩 Reach me at **[yahialord4315@gmail.com](mailto:yahialord4315@gmail.com)**  
+or check out my **[portfolio](https://portfolio25-one.vercel.app/)**.
+
 ## 📄 License
 MIT License © 2025 Yahia Badr
