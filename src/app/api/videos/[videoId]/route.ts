@@ -15,10 +15,13 @@ async function fetchVideoData(videoId: string) {
 }
 
 
-export async function GET(request: Request, { params }: { params: { videoId: string } }) {
+export async function GET(request: Request, { params }: { params: { videoId?: string } }) {
     const { videoId } = await params;
 
-    const videoData = await fetchVideoData(videoId)
+    if (!videoId) {
+        return NextResponse.json({ error: 'Video ID is required' }, { status: 400 });
+    }
+    const videoData = await fetchVideoData(videoId);
 
     if (!videoData) {
         return NextResponse.json({ error: 'Video not found' }, { status: 404 });
