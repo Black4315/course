@@ -14,6 +14,7 @@ export default {
           sm: "5px",
         },
         screens: {
+          'max-xs': { 'max': '350px' },
           'max-lg2': { 'max': '1260px' },
           'semishort': { 'raw': '(max-height: 600px)' }
         },

@@ -9,6 +9,8 @@ import { showPopup } from "../lib";
 import { duration, Skeleton } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
+import { useUser } from "@/context/userContext";
+import { useQuery } from "@tanstack/react-query";
 
 type CommentType = {
     user: string;
@@ -18,8 +20,20 @@ type CommentType = {
 };
 
 const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
+    const {user_data, setUser_data} = useUser();
     const [hydrated, setHydrated] = useState(false);
     const [comments, setcomments] = useState<CommentType[]>([])
+    const [skeletonComments, setskeletonComments] = useState(Array(3).fill({
+        profilePicture: <Skeleton variant="circular" sx={{ width: '3.75rem', height: '3.75rem', '@media (min-width: 640px)': { width: '5rem', height: '5rem' }, aspectRatio: '1 / 1' }} />,
+        user: <Skeleton height={10} width="40%" />,
+        date: <Skeleton height={10} width="20%" style={{ marginTop: '6px' }} />,
+        comment: (
+            <>
+                <Skeleton  variant="text" width={'100%'} />
+                <Skeleton  variant="text" width={'60%'} />
+            </>
+        )
+    }))
     const [isWide, setIsWide] = useState(false);
     const [isVideoStart, setIsVideoStart] = useState(false);
 
@@ -29,13 +43,22 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
     }, []);
 
 
-    useEffect(() => {
-        fetch('/api/comments')
-            .then((res) => res.json())
-            .then((data) => setcomments(data))
-            .catch((err) => console.error('Error:', err));
+    const { data: commentsData} = useQuery({
+        queryKey: ['comments'],
+        queryFn: async () => {
+            const res = await fetch('/api/comments');
+            if (!res.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return res.json();
+        }
+    });
 
-    }, [])
+    useEffect(() => {
+        if (commentsData) {
+            setcomments(commentsData);
+        }
+    }, [commentsData]);
 
     const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const videoSchema = {
@@ -55,6 +78,12 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
         },
     }
 
+    // update the user golobal state when the user is logged in
+    useEffect(() => {
+        if (user) {
+            setUser_data(user);
+        }
+    }, [user, setUser_data]);
     return (
         <>
             <Head>
@@ -73,14 +102,14 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                 <li key={index}
                                     data-tooltip={tooltip}
                                     onClick={(e) => {
-                                        !Action && window.history.pushState({}, '', '/#' + link);
+                                        !Action && window.history.pushState({}, '', '#' + link);
                                         if (!Action) {
                                             window.scrollTo({
                                                 top: (mobileCheck && isVideoStart && !isWide) ? document.getElementById(link)!.offsetTop - 300 : document.getElementById(link)?.offsetTop
                                             })
                                         } else {
                                             showPopup({
-                                                title: '', html: <div className="max-sm:-m-1 sm:mt-5 "><Action user={user} /></div>,
+                                                title: '', html: <div className="max-sm:-m-1 sm:mt-5 "><Action user={user_data} /></div>,
                                                 action: () => {
                                                     const popup = document.querySelector(".swal2-popup") as HTMLElement;
                                                     if (popup) {
@@ -94,7 +123,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                             })
                                         }
                                     }}
-                                    onKeyDown={(e) => (e.key === ' ') &&(e.preventDefault(), e.currentTarget.click())}
+                                    onKeyDown={(e) => (e.key === ' ') && (e.preventDefault(), e.currentTarget.click())}
                                     role="button"
                                     tabIndex={0}
                                     className="group p-3 relative border duration-300 hover:bg-gray-400 hover:border-gray-400 transition-all border-gray-200 rounded-full cursor-pointer focus">
@@ -108,7 +137,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                     <div className='col-start-1 row-start-2 max-md:mx-2 mt-3 md:my-4 '>
                         <h2 className="h2 mb-6 max-md:hidden">Course Materials</h2>
 
-                        <div className="px-9 py-6.5 md:py-4 shadow-[0_0_30px_15px_rgba(0,0,0,.05)] rounded-sm">
+                        <div className="px-9 py-6.5 max-xs:px-7 max-xs:py-4.5 md:py-4 shadow-[0_0_30px_15px_rgba(0,0,0,.05)] rounded-sm">
                             <h2 className="h2 mb-3 mt-7 hidden max-md:block text-[1.3rem]">{hydrated ? 'Course Materials' : <Skeleton variant="text" width={'60%'} />}</h2>
                             <div className="md:flex justify-between *:flex-1  gap-30 ">
                                 {courseMat.map((item: any, i) => (
@@ -117,8 +146,8 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                             <li key={id} className={`li`} style={{ border: idx == item.length - 1 ? 'none' : '' }}>
                                                 {hydrated ? (<>
                                                     <Image src={icon} alt={icon} width={19} height={19} />
-                                                    <p className='mx-3.5 text-[1.15rem] leading-6 '>{title}: </p>
-                                                    <span className="ml-auto text-end">{righthand}</span>
+                                                    <p className='mx-3.5 max-xs:text-base text-[1.15rem] leading-6 '>{title}: </p>
+                                                    <span className="ml-auto max-xs:text-sm text-end">{righthand}</span>
                                                 </>) : (<Skeleton key={id} variant="text" width={'100%'} />)}
 
                                             </li>
@@ -138,11 +167,12 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                         {/* comments */}
                         <h2 className="h2 mb-3 tracking-wide ">Comments</h2>
                         <ul className="mb-10">
-                            {comments.map(({ user, profilePicture, date, comment }, index) => (
+                            {(comments.length == 0 ? skeletonComments : comments).map(({ user, profilePicture, date, comment }, index) => (
                                 <li key={index} className="li mb-5" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
-                                    <div className="flex gap-4 sm:gap-7">
-                                        <Image src={profilePicture} alt={user} width={300} height={0} className="w-15 h-15 sm:w-20 sm:h-20 rounded-full object-cover" />
-                                        <div>
+                                    <div className="flex gap-4 sm:gap-7 w-full">
+                                        {comments.length > 0 ? (<Image src={profilePicture} alt={user} width={300} height={0} className="w-15 h-15 sm:w-20 sm:h-20 rounded-full object-cover" />)
+                                            : (profilePicture)}
+                                        <div className="w-full">
                                             <p className="text-[1.15rem] sm:text-[1.25rem] text-[#6c6c6c]">{user}</p>
                                             <p className="text-[0.9rem] sm:text-base text-[#999999]">{date}</p>
                                             <p className="text-[1.1rem] sm:text-lg mt-3 text-[#999999]">{comment}</p>

@@ -1,5 +1,5 @@
 // import fs from 'fs';
-import { NextRequest, NextResponse } from 'next/server';
+
 // import path from 'path';
 
 // export async function GET(
@@ -52,8 +52,14 @@ import { NextRequest, NextResponse } from 'next/server';
 //     headers,
 //   });
 // }
-export async function GET(){
+// 
+import { NextRequest, NextResponse } from 'next/server';
+import fs from 'fs';
+import path from "path";
 
-  return NextResponse.json({ video: "Video name" }, { status: 200 }); 
+const filePath = path.resolve('./data/videos.json')
 
+export async function GET() {
+  const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+  return NextResponse.json(data)
 }

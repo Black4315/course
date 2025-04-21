@@ -1,0 +1,96 @@
+
+[
+    {
+        "videoId": "1",
+        "title": "video1",
+        "description": "This is the first video in the series.",
+        "url": "/assets/videos/1/360p.webm",
+        "thumbnail": "/assets/videos/1/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "2",
+        "title": "video2",
+        "description": "This is the second video in the series.",
+        "url": "/assets/videos/2/360p.webm",
+        "thumbnail": "/assets/videos/2/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "3",
+        "title": "video3",
+        "description": "This is the third video in the series.",
+        "url": "/assets/videos/3/360p.webm",
+        "thumbnail": "/assets/videos/3/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "4",
+        "title": "video4",
+        "description": "This is the fourth video in the series.",
+        "url": "/assets/videos/4/360p.webm",
+        "thumbnail": "/assets/videos/4/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "5",
+        "title": "video5",
+        "description": "This is the fifth video in the series.",
+        "url": "/assets/videos/5/360p.webm",
+        "thumbnail": "/assets/videos/5/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "6",
+        "title": "video6",
+        "description": "This is the sixth video in the series.",
+        "url": "/assets/videos/6/360p.webm",
+        "sprites": [
+            "/assets/videos/6/preview/sprite_sequence-1.jpg",
+            "/assets/videos/6/preview/sprite_sequence-2.jpg",
+            "/assets/videos/6/preview/sprite_sequence-3.jpg",
+            "/assets/videos/6/preview/sprite_sequence-4.jpg",
+            "/assets/videos/6/preview/sprite_sequence-5.jpg"
+        ],
+        "thumbnail": "/assets/videos/6/thumbnail.webp"
+    },
+    {
+        "videoId": "7",
+        "title": "video7",
+        "description": "This is the seventh video in the series.",
+        "url": "/assets/videos/7/360p.webm",
+        "sprites": [
+            "/assets/videos/7/preview/sprite_sequence-1.jpg",
+            "/assets/videos/7/preview/sprite_sequence-2.jpg",
+            "/assets/videos/7/preview/sprite_sequence-3.jpg",
+            "/assets/videos/7/preview/sprite_sequence-4.jpg",
+            "/assets/videos/7/preview/sprite_sequence-5.jpg",
+            "/assets/videos/7/preview/sprite_sequence-6.jpg"
+        ],
+        "thumbnail": "/assets/videos/7/thumbnail.webp"
+    },
+    {
+        "videoId": "8",
+        "title": "video8",
+        "description": "This is the eighth video in the series.",
+        "url": "/assets/videos/8/360p.webm",
+        "thumbnail": "/assets/videos/8/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "9",
+        "title": "video9",
+        "description": "This is the ninth video in the series.",
+        "url": "/assets/videos/9/360p.webm",
+        "thumbnail": "/assets/videos/9/thumbnail.webp",
+        "sprites": []
+    },
+    {
+        "videoId": "10",
+        "title": "video10",
+        "description": "This is the tenth video in the series.",
+        "url": "/assets/videos/10/360p.webm",
+        "thumbnail": "/assets/videos/10/thumbnail.webp",
+        "sprites": []
+    }
+] 

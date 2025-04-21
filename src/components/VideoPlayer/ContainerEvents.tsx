@@ -1,10 +1,11 @@
 "use client"
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { IoMdPause } from "react-icons/io";
+import { IoMdPause, IoMdSkipBackward, IoMdSkipForward } from "react-icons/io";
 import { IoMdPlay } from "react-icons/io";
 import gsap from 'gsap';
 import { IoCaretForwardSharp, IoReload, IoVolumeHighSharp, IoVolumeMuteSharp } from 'react-icons/io5';
 import { simpleAnim } from '@/lib';
+import { useRouter } from 'next/navigation';
 
 
 type ContainerEventsProps = {
@@ -18,6 +19,9 @@ type ContainerEventsProps = {
   setvolume: (type: any) => void;
   handleProcess: (type: any) => void;
   videoRef: any;
+  videoId: string;
+  nextVideo: () => void;
+  prevVideo: () => void;
 }
 const ContainerEvents: React.FC<ContainerEventsProps> = (
   { mobileCheck,
@@ -29,11 +33,14 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
     startPlay,
     handleProcess,
     isEnd,
-    videoRef
+    videoRef,
+    videoId,
+    nextVideo,
+    prevVideo
   }
 ) => {
   const [sec10, setsec10] = useState(true)
-
+  const router = useRouter();
 
   // 10sec animation
   const secAnim = useCallback(() => {
@@ -83,10 +90,15 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       const tapLength = currentTime - lastTap;
 
       if (tapLength < 300 && tapLength > 0) { // Adjust time window as needed
-        let firsthalf = e.changedTouches[0].clientX < (e.changedTouches[0].target.offsetWidth / 2)
-        if (firsthalf) { videoRef.current.currentTime -= 10; setsec10(false) }
-        else { videoRef.current.currentTime += 10; setsec10(true) }
-        secAnim()
+        let thirdWidth = e.changedTouches[0].target.offsetWidth / 2.7;
+        let touchX = e.changedTouches[0].clientX;
+
+        const action = touchX < thirdWidth ? -10 : touchX > 1.9 * thirdWidth ? 10 : 0;
+        if (action !== 0) {
+          videoRef.current.currentTime += action;
+          setsec10(action > 0);
+          secAnim()
+        }
 
       }
       lastTap = currentTime;
@@ -104,6 +116,23 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
           videoRef.current.currentTime = videoRef.current.duration * percent
         }
         switch (e.key) {
+          case 'p': case 'P':
+            if (e.shiftKey) {
+              e.preventDefault();
+              prevVideo();
+            }
+            break;
+
+          case 'n': case 'N':
+            if (e.shiftKey) {
+              e.preventDefault();
+              nextVideo();
+            }
+            break;
+
+
+            break;
+
           case ' ': case 'k': case 'K':
             e.preventDefault(); // Prevent scrolling when pressing space
             clickContainer()
@@ -168,15 +197,25 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       className='grow-1 flex-center z-1  '>
 
 
-      {startPlay &&
+      {startPlay && (<div id='mobile_video_btns' className='flex w-10/12 items-center justify-evenly'>
+        <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-12 h-12 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+          <IoMdSkipBackward className='scale-[.90]' />
+        </div>
+
         <div onClick={() => mobileCheck && handleProcess('play-pause')}
-          className={`fade w-15 h-15 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-[#000000bc] flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
+          className={`fade w-15 h-15 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
         >
           {!mobileCheck ?
             (isPlaying ? <IoMdPlay /> : (!isEnd ? <IoMdPause /> : <IoReload />)) :
             (isPlaying ? <IoMdPause /> : (!isEnd ? <IoMdPlay /> : <IoReload />))
           }
         </div>
+
+        <div id="nextBtn" onClick={() => { nextVideo(); }} aria-label={'Next'} className={`fade w-12 h-12 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+          <IoMdSkipForward className='scale-[.90]' />
+        </div>
+      </div>
+      )
       }
 
       <div className={`sec10 flex text-gray-50 ${mobileCheck ? 'h-[170%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>

@@ -6,8 +6,8 @@ import { MdOutlineHighQuality, MdSpeed } from 'react-icons/md';
 import { GrFormCheckmark } from 'react-icons/gr';
 
 
-const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo , setIsBuffering}:
-  { isSettingOpen: boolean; settingsBtn: any; setisSettingOpen: (state: any) => void; videoRef: any; 
+const Settings = ({ videoId, isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setVideo , setIsBuffering}:
+  { videoId:string; isSettingOpen: boolean; settingsBtn: any; setisSettingOpen: (state: any) => void; videoRef: any; 
     setVideo: (state: any) => void; setIsBuffering: (state: any)=>void }) => {
 
   const settingRef = useRef<HTMLDivElement | null>(null)
@@ -23,7 +23,7 @@ const Settings = ({ isSettingOpen, settingsBtn, setisSettingOpen, videoRef, setV
 
     const currentTime = videoRef.current.currentTime || 0;
     const source_ele =  videoRef.current.querySelector('source')
-    let video_src = `/assets/videos/shahinVideo/${newQuality}p.webm`
+    let video_src = `/assets/videos/${videoId}/${newQuality}p.webm`
 
     // if only source not loaded
     source_ele.src != video_src && source_ele.setAttribute("src", video_src);

@@ -57,6 +57,20 @@ body {
     font-family: var(--font-arabic);
 }
 
+@theme {
+  --animate-shrink: shrink 3s .5s linear forwards;
+
+  @keyframes shrink {
+
+    0%, {
+     width: 100%;
+    }
+
+    100% {
+     width: 0%;
+    }
+  }
+}
 @layer utilities{
   .rpv-core__textbox{
     @apply !h-[1.5rem]

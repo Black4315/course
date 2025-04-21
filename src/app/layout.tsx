@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Head from "next/head";
+import { UserProvider } from "@/context/userContext";
+import ReactQueryProvider from "@/utils/providers/ReactQueryProvider";
 
 
 const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -49,7 +51,11 @@ export default function RootLayout({
       <body
         className={``} //antialiased
       >
-        {children}
+        <ReactQueryProvider>
+          <UserProvider>
+            {children}
+          </UserProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

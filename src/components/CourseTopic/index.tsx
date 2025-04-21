@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
@@ -12,11 +12,14 @@ import Swal from "sweetalert2";
 import { ScrollTrigger } from "gsap/all";
 import PdfViewer from "../PdfViewer";
 import { Skeleton } from "@mui/material";
+import { useUser } from "@/context/userContext";
 
 gsap.registerPlugin(ScrollTrigger)
 
 const CourseTopic = ({ user, hydrated }: any) => {
     const ref = useRef<HTMLDivElement | null>(null);
+
+    const { user_data, setUser_data } = useUser();
     const [courseProg, setCourseProg] = useState(0)
     const [mobileWidth, setmobileWidth] = useState(false)
     const [topicMenuOpen, settopicMenuOpen] = useState(1)
@@ -74,6 +77,19 @@ const CourseTopic = ({ user, hydrated }: any) => {
     /////////////////////////////////////////////////// exam part
 
 
+    useEffect(() => {
+        if(sessionStorage.getItem('courseProg')) {
+            setCourseProg(parseInt(sessionStorage.getItem('courseProg')!))
+        }
+        else if (user_data) {  
+            setCourseProg(user_data.progress)
+        }   
+        else if (user) {
+            setCourseProg(user.progress)
+            setUser_data(user)
+            sessionStorage.setItem('courseProg', user.progress)
+        }
+    }, [user, user_data])
 
     useEffect(() => {
         setCourseProg(user.progress)
@@ -158,7 +174,7 @@ const CourseTopic = ({ user, hydrated }: any) => {
                                     }}
                                     onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(),e.currentTarget.click())}
                                     role="button"
-                                    tabIndex={1}
+                                    tabIndex={0}
                                     className={`li ${mobileWidth && 'px-6'} ${(i == 2 || i == list.length - 1) && 'after:h-[1px] after:bg-blue-100  after:w-0 after:absolute after:-bottom-[1px] cursor-pointer hover:after:w-full after:transition-all after:duration-300 after:left-0 '} focus`}
                                 >
 
