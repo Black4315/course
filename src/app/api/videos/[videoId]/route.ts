@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+// import type { RouteContext } from 'next';
 import path from 'path';
 import fs from 'fs/promises';
 
@@ -15,8 +16,8 @@ async function fetchVideoData(videoId: string) {
 }
 
 
-export async function GET(request: Request, { params }: { params: { videoId?: string } }) {
-    const { videoId } = await params;
+export async function GET(request: NextRequest,context: any) {
+    const { videoId } = await context.params;
 
     if (!videoId) {
         return NextResponse.json({ error: 'Video ID is required' }, { status: 400 });

@@ -7,11 +7,11 @@ interface Props {
     params: { videoId: string };
 }
 
-export default async function VideoPage({ params }: Props) {
+export default async function VideoPage( context : any) {
     const filePath = path.resolve('./data/videos.json');
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const videos = JSON.parse(fileContent);
-    const { videoId } = await params;
+    const { videoId } = await context.params;
 
 
     const videoExists = videos.some((video: any) => video.videoId === videoId);
