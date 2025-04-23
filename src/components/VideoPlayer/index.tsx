@@ -441,7 +441,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       )}
 
       {/* controls */}
-      {isEnd && <div className='fixed inset-0 top-0 w-full h-[2px] bg-red-200/90 animate-shrink ' />}
+      {isEnd && <div className={`fixed inset-0 top-0 w-full ${mobileCheck ? 'h-[3px]' :'h-[2px]'} bg-red-200/90 animate-shrink `} />}
 
       {(!startPlay && video_data) && <div
         className='w-15 h-15 md:w-20 md:h-20 text-xl sm:text-2xl top-1/2 left-1/2 

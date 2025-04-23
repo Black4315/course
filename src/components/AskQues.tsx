@@ -58,15 +58,21 @@ const AskQues = ({user}:any) => {
     }
   };
 
+  useEffect(() => {
+    let swal2 = document.querySelector(".swal2-popup") as any
+    swal2!.classList.add("sm:!w-[620px]")
+  }, []);
+
+ 
   return (
     <div className="flex items-center justify-center flex-col min-h-70 ">
       <p className="mb-10 text-black text-xl font-gs w-5/6">أهلاً بيك يا بطل ! عندك أي أسئلة عن الكورس؟ أنا جاهز </p>
 
-      <div className="max-w-lg flex w-full flex-col gap-1 empty:hidden items-end rtl:items-start mb-3 max-h-67 overflow-auto">
+      <div className=" flex w-full flex-col gap-1 empty:hidden items-end rtl:items-start mb-3 max-h-67 overflow-auto">
         <div className="px-2 w-full">
-          {user_messages.map((mess:string,i:number)=>(
+          {user_messages.map((mess: string, i: number) => (
             <div key={i} className="flex justify-end">
-              <div className="rounded-3xl px-5 py-2.5 max-w-50 w-max bg-gray-message_surface my-2 whitespace-pre-wrap text-right">{mess}</div>
+              <div className="rounded-3xl px-5 py-2.5 max-w-10/12 w-max bg-gray-message_surface my-2 whitespace-pre-wrap text-right">{mess}</div>
             </div>
           ))}
         </div>
