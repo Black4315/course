@@ -62,6 +62,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
   const timeoutVisibility = 200
 
   //load video data
+  const PlayList = {isPlayList:true,length:10}
   const pathname = usePathname();
   const videoId = pathname.startsWith('/videos/') ? pathname.split('/videos/')[1] : '6';
   const [video_data, setvideo_data] = React.useState<Video_data | null>(null)
@@ -87,7 +88,10 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
     const sessionProg = parseInt(sessionStorage.getItem('courseProg') || '0');
     sessionStorage.setItem('courseProg', Math.max(sessionProg, newProgress).toString());
   };
-  const nextVideo = () => { router.push('/videos/' + (+videoId + 1), undefined); }
+  const nextVideo = () => { 
+    let id = (PlayList.isPlayList && PlayList.length == +videoId) ? 0 : 1;
+    router.push('/videos/' + (+videoId + (id)), undefined); 
+  }
   const prevVideo = () => { !(+videoId! <= 1 || +videoId == 6) && router.push('/videos/' + (+videoId - 1), undefined); }
   //load video data
 
@@ -432,7 +436,7 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
       </video>
       {(isBuffering || !video_data) && (
         <div className="absolute inset-0 flex pointer-events-none z-2 items-center justify-center bg-black/50">
-          <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-2 border-[#eee] border-t-[#666] rounded-full animate-spin"></div>
         </div>
       )}
 

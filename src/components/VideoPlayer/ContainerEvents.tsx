@@ -44,6 +44,8 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
 
   // 10sec animation
   const secAnim = useCallback(() => {
+    gsap.to('#mobile_video_btns', { duration: 0, opacity: 0})
+
     gsap.to('.sec10',
       {
         opacity: 1,
@@ -64,7 +66,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
         }
       }
     })
-  }, [])
+  },[])
 
   const volAnim = useCallback(() => {
     simpleAnim('volumIncontainer', { opacity: 1, duration: 0, onComplete: () => gsap.to('#volumIncontainer', { opacity: 0, duration: 0, delay: 1 }) })
@@ -97,9 +99,21 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
         if (action !== 0) {
           videoRef.current.currentTime += action;
           setsec10(action > 0);
-          secAnim()
         }
+        secAnim()
 
+        let timeoutId: NodeJS.Timeout | null = null;
+
+        const touchEndHandler = () => {
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+          timeoutId = setTimeout(() => {
+            gsap.to('#mobile_video_btns', { opacity: 1,}) 
+          }, 700);
+        };
+
+        document.addEventListener('touchend', touchEndHandler);
       }
       lastTap = currentTime;
     }
@@ -198,12 +212,12 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
 
 
       {startPlay && (<div id='mobile_video_btns' className='flex w-10/12 items-center justify-evenly'>
-        <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-12 h-12 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+        <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-10 md:w-15 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
           <IoMdSkipBackward className='scale-[.90]' />
         </div>
 
         <div onClick={() => mobileCheck && handleProcess('play-pause')}
-          className={`fade w-15 h-15 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
+          className={`fade w-13 md:w-18 aspect-square md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'opacity-0'} `}
         >
           {!mobileCheck ?
             (isPlaying ? <IoMdPlay /> : (!isEnd ? <IoMdPause /> : <IoReload />)) :
@@ -211,14 +225,14 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
           }
         </div>
 
-        <div id="nextBtn" onClick={() => { nextVideo(); }} aria-label={'Next'} className={`fade w-12 h-12 md:w-20 md:h-20 md:text-4xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+        <div id="nextBtn" onClick={() => { nextVideo(); }} aria-label={'Next'} className={`fade w-10 md:w-15 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
           <IoMdSkipForward className='scale-[.90]' />
         </div>
       </div>
       )
       }
 
-      <div className={`sec10 flex text-gray-50 ${mobileCheck ? 'h-[170%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
+      <div className={`sec10 flex text-gray-50 ${mobileCheck ? 'h-[100%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
 
         <div className='flex-center flex-col text-center p-4'>
           <span className={`text-2xl flex  ${sec10 ? ' ' : '-rotate-180'} scale-y-80`}>
