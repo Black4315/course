@@ -15,7 +15,7 @@ export function createTooltip() {
 
     const showTooltip = () => {
       const rect = element.getBoundingClientRect();
-      tooltip.style.left = `${Math.min(rect.left, innerWidth - 60) + rect.width / 2}px`;
+      tooltip.style.left = `${Math.max(40,Math.min(rect.left, innerWidth - 60)) + rect.width / 2}px`;
       tooltip.style.top = `${rect.top - 50}px`;
       tooltip.style.opacity = '1';
     };
