@@ -20,7 +20,7 @@ type CommentType = {
 };
 
 const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
-    const {user_data, setUser_data} = useUser();
+    const { user_data, setUser_data } = useUser();
     const [hydrated, setHydrated] = useState(false);
     const [comments, setcomments] = useState<CommentType[]>([])
     const [skeletonComments, setskeletonComments] = useState(Array(3).fill({
@@ -29,8 +29,8 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
         date: <Skeleton height={10} width="20%" style={{ marginTop: '6px' }} />,
         comment: (
             <>
-                <Skeleton  variant="text" width={'100%'} />
-                <Skeleton  variant="text" width={'60%'} />
+                <Skeleton variant="text" width={'100%'} />
+                <Skeleton variant="text" width={'60%'} />
             </>
         )
     }))
@@ -43,7 +43,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
     }, []);
 
 
-    const { data: commentsData} = useQuery({
+    const { data: commentsData } = useQuery({
         queryKey: ['comments'],
         queryFn: async () => {
             const res = await fetch('/api/comments');
@@ -170,8 +170,11 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                             {(comments.length == 0 ? skeletonComments : comments).map(({ user, profilePicture, date, comment }, index) => (
                                 <li key={index} className="li mb-5" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
                                     <div className="flex gap-4 sm:gap-7 w-full">
-                                        {comments.length > 0 ? (<Image src={profilePicture} alt={user} width={300} height={0} className="w-15 h-15 sm:w-20 sm:h-20 rounded-full object-cover" />)
-                                            : (profilePicture)}
+                                        {comments.length > 0 ? (
+                                            <div className="shrink-0 w-15 h-15 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-center bg-[#e4e4e4]">
+                                                <Image src={profilePicture} alt={user} width={300} height={0} className="w-full h-full object-cover" />
+                                            </div>
+                                        ) : (profilePicture)}
                                         <div className="w-full">
                                             <p className="text-[1.15rem] sm:text-[1.25rem] text-[#6c6c6c]">{user}</p>
                                             <p className="text-[0.9rem] sm:text-base text-[#999999]">{date}</p>
@@ -184,7 +187,11 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                     </div>
                     {/* send comment */}
                     <div>
-                        <form action="" method="post">
+                        <form action="" method="post" onSubmit={(e) => {
+                            e.preventDefault();
+                            const textarea = e.currentTarget.querySelector('textarea');
+                            if (textarea) textarea.value = ""; 
+                        }}>
                             {hydrated && (
                                 <>
                                     <input type="hidden" name="id" value={user.id} />
@@ -194,7 +201,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
                                         tabIndex={0}
                                         name="comment"
                                         placeholder="Write a comment"
-                                        className="w-full h-42 rounded-sm p-5 text-[#939393] text-lg font-medium md:text-xl resize-y border-none shadow-[0_0_30px_15px_rgba(0,0,0,.07)] outline-none min-h-25 max-h-100 "
+                                        className="w-full min-h-42 rounded-sm p-5 text-[#939393] text-lg font-medium md:text-xl resize-y border-none shadow-[0_0_30px_15px_rgba(0,0,0,.07)] outline-none max-h-80 "
                                     ></textarea>
                                     <button type="submit" className="button gap-3 ">
                                         Submit Review <FaArrowRightLong />

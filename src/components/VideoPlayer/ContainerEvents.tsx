@@ -233,7 +233,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       )
       }
 
-      <div className={`z-1 sec10 flex text-gray-50 ${mobileCheck ? 'h-[100%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
+      <div className={`z-1 sec10 flex text-gray-50 ${mobileCheck ? 'h-[160%] w-[45%] bg-[#e0e0e01e] rounded-[50%]' : 'w-auto h-auto rounded-full bg-[#000000ce] aspect-square'} ${sec10 ? (mobileCheck ? 'right-0 rounded-r-none' : 'left-9/12') : (mobileCheck ? 'rounded-l-none left-0' : 'right-9/12')} `}>
 
         <div className='flex-center flex-col text-center p-4'>
           <span className={`text-2xl flex  ${sec10 ? ' ' : '-rotate-180'} scale-y-80`}>

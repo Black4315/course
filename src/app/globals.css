@@ -146,7 +146,7 @@ body {
       @apply flex items-center relative text-gray-700 border-b-1 border-gray-border py-4
     }
     .button{
-      @apply cursor-pointer mt-6 w-46 h-12 sm:w-54 sm:h-15 bg-green-300 rounded-sm text-white flex items-center justify-center  sm:text-lg transition-all hover:bg-white hover:text-black border-2 border-transparent hover:border-green-300
+      @apply cursor-pointer mt-6 w-46 h-12 sm:w-54 sm:h-15 bg-green-300 rounded-sm text-white flex items-center justify-center sm:text-lg transition-all hover:bg-white hover:text-black active:bg-white active:text-black border-2 border-transparent hover:border-green-300 active:border-green-300
     }
 }
 
