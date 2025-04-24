@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, } from 'react'
+import React, { useEffect, useState, useTransition, } from 'react'
 import { IoMdPause, IoMdSkipBackward, IoMdSkipForward } from "react-icons/io";
 import { IoMdPlay } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
@@ -29,6 +29,13 @@ interface Video_data {
   url: string;
   sprites: string[];
   thumbnail: string;
+}
+interface PlayListType {
+  isPlayList: boolean;
+  length: number;
+  nextVideoUrl: () => string;
+  prevVideoUrl: () => string;
+  currentVideoUrl: () => string;
 }
 const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
   { onExpand: (state: any) => void; onStart: (state: any) => void; isWide: boolean; mobileCheck: boolean }) => {
@@ -62,12 +69,31 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
   const timeoutVisibility = 200
 
   //load video data
-  const PlayList = {isPlayList:true,length:10}
+  const [isPending, startTransition] = useTransition();
+  const [routeChanging, setRouteChanging] = useState(false);
   const pathname = usePathname();
   const videoId = pathname.startsWith('/videos/') ? pathname.split('/videos/')[1] : '6';
   const [video_data, setvideo_data] = React.useState<Video_data | null>(null)
   const router = useRouter();
   const { user_data, setUser_data } = useUser();
+  
+// is playlist or not
+
+  const PlayList: PlayListType = {
+    isPlayList:true,
+    length: 10,
+    nextVideoUrl: function () {
+      return `/videos/${(+videoId + (this.isPlayList && this.length === +videoId ? 0 : 1))}`;
+    },
+    prevVideoUrl: function () {
+      return `/videos/${(+videoId - (!(+videoId <= 1 || +videoId === 6) ? 1 : 0))}`;
+    },
+    currentVideoUrl: function () {
+      return `/videos/${videoId}`;
+    },
+  };
+// is playlist or not
+
 
   const { data, refetch } = useQuery({
     queryKey: ['video', videoId],
@@ -88,11 +114,24 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
     const sessionProg = parseInt(sessionStorage.getItem('courseProg') || '0');
     sessionStorage.setItem('courseProg', Math.max(sessionProg, newProgress).toString());
   };
-  const nextVideo = () => { 
-    let id = (PlayList.isPlayList && PlayList.length == +videoId) ? 0 : 1;
-    router.push('/videos/' + (+videoId + (id)), undefined); 
-  }
-  const prevVideo = () => { !(+videoId! <= 1 || +videoId == 6) && router.push('/videos/' + (+videoId - 1), undefined); }
+  const nextVideo = () => {
+    setRouteChanging(true);
+    startTransition(() => {
+      router.push(PlayList.nextVideoUrl());
+    });
+  };
+
+  const prevVideo = () => {
+    setRouteChanging(true);
+    startTransition(() => {
+        router.push(PlayList.prevVideoUrl());
+    });
+  };
+  useEffect(() => {
+    if (!isPending) {
+      setRouteChanging(false);
+    }
+  }, [isPending]);  
   //load video data
 
 
@@ -434,14 +473,14 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
         <source src={video_data?.url} type="video/webm" />
 
       </video>
-      {(isBuffering || !video_data) && (
+      {(isBuffering || !video_data ) && (
         <div className="absolute inset-0 flex pointer-events-none z-2 items-center justify-center bg-black/50">
           <div className="w-12 h-12 border-2 border-[#eee] border-t-[#666] rounded-full animate-spin"></div>
         </div>
       )}
 
       {/* controls */}
-      {isEnd && <div className={`fixed inset-0 top-0 w-full ${mobileCheck ? 'h-[3px]' :'h-[2px]'} bg-red-200/90 animate-shrink `} />}
+      {(isEnd || routeChanging) && <div className={`fixed inset-0 top-0 w-full ${mobileCheck ? 'h-[3px]' :'h-[2px]'} bg-red-200/90 animate-shrink `} />}
 
       {(!startPlay && video_data) && <div
         className='w-15 h-15 md:w-20 md:h-20 text-xl sm:text-2xl top-1/2 left-1/2 
@@ -474,17 +513,17 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
           <div className='controlbtns' >
             <div className='flex items-center gap-3 sm:gap-5'>
               {/* replay / play /next */}
-              {!(+videoId! <= 1 || +videoId == 6) && <button id="replayBtn" onClick={() => {prevVideo()}} aria-label={'Replay'} data-tooltip={'Replay (shift + p)'} className={`video-btn ${mobileCheck && 'hidden'}`}>
+              {!(+videoId! <= 1 || +videoId == 6) && <a href={PlayList.prevVideoUrl()} id="replayBtn" onClick={(e) => { e.preventDefault(); prevVideo() }} aria-label={'Replay'} data-tooltip={'Replay (shift + p)'} className={`video-btn ${mobileCheck && 'hidden'}`}>
                 <IoMdSkipBackward className='scale-[.80]' />
-              </button>}
+              </a>}
 
               <button id="playPauseBtn" onClick={() => handleProcess('play-pause')} aria-label={(isPlaying ? 'Pause' : 'Play')} data-tooltip={(isPlaying ? 'Pause' : 'Play') + ' (k)'} className='video-btn'>
                 {isPlaying ? <IoMdPause /> : (!isEnd ? <IoMdPlay /> : <IoReload />)}
               </button>
 
-              <button id="nextBtn" onClick={() => {nextVideo()}} aria-label={'Next'} data-tooltip={'Next (shift + n)'} className={`video-btn ${mobileCheck && 'hidden'}`}>
+              <a href={PlayList.nextVideoUrl()} id="nextBtn" onClick={(e) =>{e.preventDefault();nextVideo()}} aria-label={'Next'} data-tooltip={'Next (shift + n)'} className={`video-btn ${mobileCheck && 'hidden'}`}>
                 <IoMdSkipForward className='scale-[.80]' />
-              </button>
+              </a>
               {/* replay / play /next */}
 
               {/* volume */}

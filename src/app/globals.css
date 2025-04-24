@@ -58,7 +58,7 @@ body {
 }
 
 @theme {
-  --animate-shrink: shrink 3s .5s linear forwards;
+  --animate-shrink: shrink 3s .5s ease-in forwards;
 
   @keyframes shrink {
 

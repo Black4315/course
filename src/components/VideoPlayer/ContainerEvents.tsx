@@ -210,8 +210,8 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       className='grow-1 flex-center z-1  '>
 
 
-      {startPlay && (<div id='mobile_video_btns' className='flex w-10/12 items-center justify-evenly'>
-        <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-10 md:w-15 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+      {startPlay && (<div id='mobile_video_btns' className='flex w-[45%] items-center justify-evenly'>
+        <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-10 md:w-13 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
           <IoMdSkipBackward className='scale-[.75]' />
         </div>
 
@@ -224,7 +224,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
           }
         </div>
 
-        <div id="nextBtn" onClick={() => { nextVideo(); }} aria-label={'Next'} className={`fade w-10 md:w-15 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
+        <div id="nextBtn" onClick={() => { nextVideo(); }} aria-label={'Next'} className={`fade w-10 md:w-13 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
           <IoMdSkipForward className='scale-[.75]' />
         </div>
       </div>
