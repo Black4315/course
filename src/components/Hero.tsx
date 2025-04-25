@@ -92,7 +92,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
 
                                                     }
                                                 }, props: {
-                                                    customClass: { closeButton: 'focus:shadow-none', popup: `max-sm:!w-svw max-sm:h-svh max-sm:!rounded-none sm:top-1/2 sm:-translate-y-1/2` }
+                                                    customClass: { popup: `max-sm:!w-svw max-sm:h-svh max-sm:!rounded-none sm:top-1/2 sm:-translate-y-1/2` }
                                                 }
                                             })
                                         }
