@@ -5,6 +5,7 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 ## ✨ Features
 - **Course Roadmap**: Displays the structured journey through the course.
 - **Video Player**: Professional custom video player with dynamic controls.
+- **Video Playlist**: Dynamic playlist fetched from API data.
 - **Reviews & Comments**: Dynamic review and comment section loaded from API data.
 - **Exam Popups**: Interactive exam popup for quiz-style evaluations.
 - **PDF Viewer**: Ability to view course materials in PDF format.
