@@ -1,8 +1,9 @@
-# 📚 Course Platform
+# Course Platform
+![Course Platform Snapshot](./public/assets/images/ogimage.png)
 
 A modern, fully-responsive course platform built with **React**, **Next.js**, **TypeScript**, **GSAP**, **Tailwind CSS**, and dynamic **API data**. This platform provides an engaging experience for users, showcasing a course roadmap, reviews, leaderboard, and various interactive features.
 
-## ✨ Features
+## Features
 - **Course Roadmap**: Displays the structured journey through the course.
 - **Video Player**: Professional custom video player with dynamic controls.
 - **Video Playlist**: Dynamic playlist fetched from API data.
@@ -13,7 +14,7 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 - **Leaderboard**: Dynamic leaderboard fetched from API data.
 - **Responsive Design**: Fully responsive layout, optimized for all screen sizes.
 
-## 🚀 Tech Stack
+## Tech Stack
 - **React**
 - **Next.js**
 - **TypeScript**
@@ -21,14 +22,10 @@ A modern, fully-responsive course platform built with **React**, **Next.js**, **
 - **Tailwind CSS**
 - **APIs** (for dynamic data fetching)
 
-## 📸 Snapshot
-
-![Course Platform Snapshot](./public/assets/images/ogimage.png)
-
-## 🌐 Demo
+## Live Demo
 🔗 [visit live site](https://course-teal-ten.vercel.app)
 
-## 🧑‍💻 Let's Work Together
+## Let's Work Together
 
 I’m open for custom projects and freelance work!
 
