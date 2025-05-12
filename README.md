@@ -39,7 +39,7 @@
 * [![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 * [![GSAP](https://img.shields.io/badge/-GSAP-black?style=for-the-badge&logoColor=white&logo=greensock&color=88CE02)](https://gsap.com/)
 * [![tailwindcss][TailwindCSS]][tailwind-url]
-- **APIs** (for dynamic data fetching)
+- **Web APIs** (for dynamic data fetching)
 
 🔗 [visit live site](https://course-teal-ten.vercel.app)
 
