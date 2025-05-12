@@ -16,7 +16,7 @@
   <h3 align="center">Course Platform</h3>
 
    <div align="center">   
-     A sleek, fully responsive course platform that delivers a smooth and engaging user experience. It includes a dynamic roadmap, user reviews, leaderboard, and rich interactive features — all powered by live API data.
+     A sleek, fully responsive course platform that delivers a smooth and engaging user experience. It includes a dynamic roadmap, user reviews, leaderboard, and rich interactive features — all powered by live Web API data.
     </div>
 </div>
 
