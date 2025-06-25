@@ -72,7 +72,7 @@ const Hero = ({ user, mobileCheck }: { user: any; mobileCheck: boolean }) => {
 
                     {/* course details */} 
                     <div className='col-start-1 row-start-2 max-md:mx-2 mt-3 md:my-4 '>
-                        <CourseMaterials {...{mobileCheck}}/>
+                        <CourseMaterials />
                     </div> 
                    
                     {/* course topic */}
