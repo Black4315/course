@@ -210,7 +210,7 @@ const ContainerEvents: React.FC<ContainerEventsProps> = (
       className='grow-1 flex-center z-1  '>
 
 
-      {startPlay && (<div id='mobile_video_btns' className='flex w-10/12 justify-evenly md:justify-between md:w-[35%] items-center '>
+      {startPlay && (<div id='mobile_video_btns' className={`flex w-10/12 justify-evenly md:w-[35%] items-center ${mobileCheck && 'md:justify-between'} `}>
         <div id="replayBtn" onClick={() => { prevVideo(); }} aria-label={'Replay'} className={`${(+videoId! <= 1 || +videoId == 6) && 'pointer-events-none text-white/50'} fade w-10 md:w-13 aspect-square md:text-3xl text-2xl z-1 rounded-full bg-black/60 flex-center text-[#eeeeee] ${!mobileCheck && 'hidden'} `}>
           <IoMdSkipBackward className='scale-[.75]' />
         </div>
