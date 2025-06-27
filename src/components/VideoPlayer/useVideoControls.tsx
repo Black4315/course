@@ -57,6 +57,8 @@ const useVideoControls = () => {
         });
     };
 
+    // onChangeVideo
+    const onChangeVideo = (change: ()=>void | any) => setVideo(change)
 
     return {
         videoRef,
@@ -82,6 +84,7 @@ const useVideoControls = () => {
         settimeDisplay,
         setloadedData,
         setisSettingOpen,
+        onChangeVideo
     };
 }
 

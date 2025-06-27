@@ -23,7 +23,6 @@ const AskQues = ({user}:any) => {
 
     if(!(data.message as string).trim()) return 
 
-    console.log(data.message)
     user_messages.push(data.message)
     setMessages((prev: any) => ({ ...prev, user_messages: user_messages }))
     setInput("");
@@ -35,7 +34,6 @@ const AskQues = ({user}:any) => {
   const handleInput = (e?: React.ChangeEvent<HTMLTextAreaElement>) => {
     let ele = e?.target ? e?.target:textContent.current
 
-    console.log(ele)
     ele!.style.height = "auto"; 
     ele!.style.height = `${ele!.scrollHeight}px`; 
   };

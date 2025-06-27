@@ -40,7 +40,7 @@ const Settings = ({ videoId, isSettingOpen, settingsBtn, setisSettingOpen, video
   };
 
   useEffect(() => {
-    (videoRef.current as HTMLVideoElement).playbackRate = playbackS
+    videoRef.current && ((videoRef.current as HTMLVideoElement).playbackRate = playbackS)
     isSettingOpen ? gsap.to('.settings', { opacity: 1, duration: .35 }) : gsap.to('.settings', { opacity: 0 })
 
     const handleClickOutside = (e: MouseEvent) => {
