@@ -5,9 +5,10 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { FaArrowRightLong } from 'react-icons/fa6';
+import Comment from './comment';
 
 type CommentType = {
-    user: string;
+    username: string;
     profilePicture: string;
     date: string;
     comment: string;
@@ -56,18 +57,22 @@ const Comments = () => {
                 {/* comments */}
                 <h2 className="h2 mb-3 tracking-wide ">Comments</h2>
                 <ul className="mb-10">
-                    {(comments.length == 0 ? skeletonComments : comments).map(({ user, profilePicture, date, comment }, index) => (
-                        <li key={index} className="li mb-5" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
+                    {(comments.length == 0 ? skeletonComments : comments).map(({ username, profilePicture, date, comment }, index) => (
+                        <li key={index} className="li mb-5 overflow-hidden" style={{ border: index == comments.length - 1 ? 'none' : '' }}>
                             <div className="flex gap-4 sm:gap-7 w-full">
                                 {comments.length > 0 ? (
                                     <div className="shrink-0 w-15 h-15 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-center bg-[#e4e4e4]">
-                                        <Image src={profilePicture} alt={user} width={300} height={0} className="w-full h-full object-cover" />
+                                        <Image src={profilePicture} alt={username} width={300} height={0} className="w-full h-full object-cover" />
                                     </div>
                                 ) : (profilePicture)}
+
                                 <div className="w-full">
-                                    <p className="text-[1.15rem] sm:text-[1.25rem] text-[#6c6c6c]">{user}</p>
+                                    <p className="text-[1.15rem] sm:text-[1.25rem] text-[#6c6c6c]">
+                                        {username?.charAt(0)?.toUpperCase() + username?.slice(1) || username}
+                                    </p>
                                     <p className="text-[0.9rem] sm:text-base text-[#999999]">{date}</p>
-                                    <p className="text-[1.1rem] sm:text-lg mt-3 text-[#999999]">{comment}</p>
+                                    {/* comment */}
+                                    <Comment comment={comment} />
                                 </div>
                             </div>
                         </li>
@@ -80,7 +85,23 @@ const Comments = () => {
                 <form action="" method="post" onSubmit={(e) => {
                     e.preventDefault();
                     const textarea = e.currentTarget.querySelector('textarea');
-                    if (textarea) textarea.value = "";
+
+                    // instance of FormData then add username, profilepic and date to the data
+                    const formData = new FormData(e.currentTarget);
+                    const data = Object.fromEntries(formData.entries());
+                    data.username = user_data?.username || 'Anonymous';
+                    data.profilePicture = user_data?.profilePicture || '/assets/images/default-profile.png';
+                    data.date = new Date().toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: '2-digit',
+                    });
+
+                    if (textarea && (data.comment as string).trim()) {
+                        setcomments(prev => [...prev, data as CommentType]);
+                        textarea.value = "";
+
+                    }
                 }}>
                     {hydrated && (
                         <>

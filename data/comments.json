@@ -1,18 +1,18 @@
 [
     {
-        "user": "Thomas James",
+        "username": "Thomas James",
         "profilePicture":"/assets/images/student2.webp",
         "date": "Oct 10, 2021" ,
         "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        "user": "William Robert",
+        "username": "William Robert",
         "profilePicture":"/assets/images/student.jpg",
         "date": "Oct 10, 2021",
         "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        "user": "John Doe",
+        "username": "John Doe",
         "profilePicture":"/assets/images/student3.webp",
         "date": "Oct 10, 2021",
         "comment": "Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
