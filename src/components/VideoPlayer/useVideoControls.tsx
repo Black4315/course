@@ -48,6 +48,7 @@ const useVideoControls = () => {
                     return { ...pre, isPlaying: !pre.isPlaying };
 
                 case 'toggle-settings':
+                    console.log('toggle settings' , isSettingOpen);
                     setisSettingOpen((prev) => !prev);
                     return pre;
 

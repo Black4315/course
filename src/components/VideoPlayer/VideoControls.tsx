@@ -26,6 +26,8 @@ const VideoControls = ({
     setIsBuffering,
     isBuffering,
     handleProcess,
+    isSettingOpen,
+    setisSettingOpen,
 }: any) => {
 
      const {  // i called all state and some helper functions in useVideoControls and destructure it for some clean
@@ -33,11 +35,9 @@ const VideoControls = ({
         controlContainerRef,
         controlRef,
         timeDisplay,
-        isSettingOpen,
         volume,
         hideControl,
         setvolume,
-        setisSettingOpen,
         onChangeVideo
       } = useVideoControls()
 

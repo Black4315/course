@@ -186,6 +186,8 @@ const VideoPlayer = ({ onExpand, isWide, onStart, mobileCheck }:
         setIsBuffering,
         isBuffering,
         handleProcess,
+        isSettingOpen,
+        setisSettingOpen,
       }} />
       {/* controls */}
     </div>
