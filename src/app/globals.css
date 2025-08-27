@@ -45,8 +45,6 @@ body {
   background: #ffffff;
   border-color: /*#3b3b3b*/#f2f2f2;
   font-family: var(--font-spartan);
-  overflow-x: hidden;
-
 }
 html,
 body {
@@ -75,10 +73,10 @@ body {
   .rpv-core__textbox{
     @apply !h-[1.5rem]
   }
-  body{
+  /* body{
     overflow-y: hidden; 
     pointer-events: none;
-  }
+  } */
   .screen-max-width {
       max-width: 1304px;
     /* max-width: 1440px; */
